@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+{% load idioma %}
+{% block titulo %}{% t "entrar.titulo" %} — {% t "app.nome" %}{% endblock %}
+
+{% block conteudo %}
+<h1>{% t "entrar.titulo" %}</h1>
+<p class="explicacao">{% t "inicio.codigo.ajuda" %}</p>
+
+<form method="post" novalidate>
+  {% csrf_token %}
+  <div class="campo">
+    <label for="codigo">{% t "entrar.codigo" %}</label>
+    <input type="text" id="codigo" name="codigo" maxlength="12" autocapitalize="characters"
+           autocomplete="off" spellcheck="false" required>
+    {% if erro %}<p class="erro">{{ erro }}</p>{% endif %}
+  </div>
+  <button class="botao" type="submit">{% t "entrar.submeter" %}</button>
+</form>
+
+<a class="ligacao-discreta" href="{% url 'acompanhamento:registo' %}">{% t "registo.titulo" %}</a>
+{% endblock %}

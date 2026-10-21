@@ -1,0 +1,53 @@
+# VPS partilhada srv1831052.
+# Regra da casa: não há Caddy aqui. O Caddy único de /opt/wooneya-backend
+# serve maesegura.wooneya.co.mz e fala com este serviço pela rede `web`.
+services:
+  maesegura-db:
+    image: postgres:16-alpine
+    container_name: maesegura-db
+    restart: unless-stopped
+    env_file: .env
+    environment:
+      POSTGRES_DB: ${POSTGRES_DB}
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+    volumes:
+      - maesegura-dados:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER}"]
+      interval: 15s
+      timeout: 5s
+      retries: 5
+    networks:
+      - interna
+
+  maesegura-web:
+    build: .
+    container_name: maesegura-web
+    restart: unless-stopped
+    env_file: .env
+    environment:
+      POSTGRES_HOST: maesegura-db
+    volumes:
+      - maesegura-estaticos:/app/staticfiles
+    healthcheck:
+      test: ["CMD-SHELL", "curl -fsS http://localhost:8000/saude/ || exit 1"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
+    depends_on:
+      maesegura-db:
+        condition: service_healthy
+    networks:
+      - interna
+      - web
+
+volumes:
+  maesegura-dados:
+  maesegura-estaticos:
+
+networks:
+  interna:
+  web:
+    external: true

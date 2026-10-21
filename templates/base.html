@@ -1,0 +1,35 @@
+{% load idioma static %}<!doctype html>
+<html lang="{{ idioma }}">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#0f5c4a">
+<title>{% block titulo %}{% t "app.nome" %}{% endblock %}</title>
+<link rel="manifest" href="{% static 'manifest.json' %}">
+<link rel="icon" href="{% static 'icones/icone.svg' %}" type="image/svg+xml">
+<link rel="stylesheet" href="{% static 'css/app.css' %}">
+</head>
+<body>
+<header class="topo">
+  <a class="marca" href="{% url 'acompanhamento:inicio' %}">
+    <span class="marca-nome">{% t "app.nome" %}</span>
+    <span class="marca-lema">{% t "app.lema" %}</span>
+  </a>
+  <a class="idioma" href="?lang={{ idioma_alternativo }}" rel="nofollow">{% t "idioma.mudar" %}</a>
+</header>
+
+<main class="folha">
+  {% block conteudo %}{% endblock %}
+</main>
+
+<nav class="barra">
+  <a href="{% url 'acompanhamento:inicio' %}">{% t "nav.consultas" %}</a>
+  <a href="{% url 'assistente:assistente' %}">{% t "nav.assistente" %}</a>
+  <a href="{% url 'painel' %}">{% t "nav.painel" %}</a>
+</nav>
+
+<p class="aviso-legal">{% t "aviso.nao.diagnostico" %}</p>
+
+<script src="{% static 'js/app.js' %}" defer></script>
+</body>
+</html>

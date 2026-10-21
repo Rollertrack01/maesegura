@@ -1,0 +1,51 @@
+{% extends "base.html" %}
+{% load idioma %}
+{% block titulo %}{% t "inicio.saudacao" %} — {% t "app.nome" %}{% endblock %}
+
+{% block conteudo %}
+<h1>{% t "inicio.saudacao" %}</h1>
+
+<div class="destaque">
+  <span class="rotulo">{% t "inicio.semana" %}</span>
+  <span class="valor">{{ semana_actual }}</span>
+</div>
+
+{% if proximo %}
+<div class="destaque">
+  <span class="rotulo">{% t "inicio.proxima" %}</span>
+  <span class="valor">{{ proximo.data_prevista|date:"j \d\e F \d\e Y" }}</span>
+</div>
+{% endif %}
+
+<div class="destaque">
+  <span class="rotulo">{% t "inicio.parto" %}</span>
+  <span class="valor">{{ gestante.data_prevista_parto|date:"j \d\e F \d\e Y" }}</span>
+</div>
+
+<h2>{% t "nav.consultas" %}</h2>
+<ul class="consultas">
+  {% for c in contactos %}
+  <li>
+    <span>
+      <span class="quando">{{ c.data_prevista|date:"j \d\e F" }}</span><br>
+      <span class="semana">{{ c.semana_alvo }}ª {% t "inicio.semana"|lower %}</span>
+    </span>
+    {% if c.estado == "realizado" %}
+      <span class="etiqueta etiqueta-realizada">{% t "inicio.realizada" %}</span>
+    {% elif c.atrasado %}
+      <span class="etiqueta etiqueta-atraso">{% t "inicio.em.atraso" %}</span>
+    {% else %}
+      <span class="etiqueta etiqueta-marcada">{% t "inicio.agendada" %}</span>
+    {% endif %}
+  </li>
+  {% empty %}
+  <li>{% t "inicio.sem.consultas" %}</li>
+  {% endfor %}
+</ul>
+
+<h2>{% t "inicio.codigo" %}</h2>
+<p class="codigo-gestante">{{ gestante.codigo }}</p>
+<p class="explicacao">{% t "inicio.codigo.ajuda" %}</p>
+
+<a class="botao botao-secundario" href="{% url 'assistente:assistente' %}">{% t "inicio.perguntar" %}</a>
+{% endblock %}

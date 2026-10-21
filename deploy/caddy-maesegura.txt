@@ -1,0 +1,16 @@
+# Bloco a acrescentar ao Caddyfile de /opt/wooneya-backend.
+# Colocar junto dos restantes blocos, nunca num Caddy novo.
+
+maesegura.wooneya.co.mz {
+	encode zstd gzip
+	reverse_proxy maesegura-web:8000
+	header {
+		Strict-Transport-Security "max-age=31536000; includeSubDomains"
+		X-Content-Type-Options "nosniff"
+		Referrer-Policy "same-origin"
+		-Server
+	}
+	log {
+		output file /var/log/caddy/maesegura.log
+	}
+}

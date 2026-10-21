@@ -1,0 +1,65 @@
+{% extends "base.html" %}
+{% load idioma %}
+{% block titulo %}{% t "registo.titulo" %} — {% t "app.nome" %}{% endblock %}
+
+{% block conteudo %}
+<h1>{% t "registo.titulo" %}</h1>
+<p class="explicacao">{% t "registo.explicacao" %}</p>
+
+<form method="post" novalidate>
+  {% csrf_token %}
+
+  <div class="campo">
+    <label for="semana">{% t "registo.semana" %}</label>
+    <span class="ajuda">{% t "registo.semana.ajuda" %}</span>
+    <input type="number" inputmode="numeric" id="semana" name="semana" min="4" max="42"
+           value="{{ valores.semana|default:'' }}" required>
+    {% if erros.semana %}<p class="erro">{{ erros.semana }}</p>{% endif %}
+  </div>
+
+  <div class="campo">
+    <label for="distrito">{% t "registo.distrito" %}</label>
+    <input type="text" id="distrito" name="distrito" value="{{ valores.distrito|default:'' }}"
+           autocomplete="address-level2">
+  </div>
+
+  {% if unidades %}
+  <div class="campo">
+    <label for="unidade">{% t "registo.unidade" %}</label>
+    <select id="unidade" name="unidade">
+      <option value="">—</option>
+      {% for u in unidades %}
+        <option value="{{ u.pk }}">{{ u.nome }} ({{ u.distrito }})</option>
+      {% endfor %}
+    </select>
+  </div>
+  {% endif %}
+
+  <div class="campo">
+    <label for="telefone">{% t "registo.telefone" %}</label>
+    <span class="ajuda">{% t "registo.telefone.ajuda" %}</span>
+    <input type="tel" id="telefone" name="telefone" value="{{ valores.telefone|default:'' }}"
+           autocomplete="tel">
+  </div>
+
+  <div class="campo">
+    <label for="idioma">{% t "registo.idioma" %}</label>
+    <select id="idioma" name="idioma">
+      <option value="pt" {% if idioma == 'pt' %}selected{% endif %}>Português</option>
+      <option value="vmw" {% if idioma == 'vmw' %}selected{% endif %}>Emakhuwa</option>
+    </select>
+  </div>
+
+  <div class="campo">
+    <label class="consentimento">
+      <input type="checkbox" name="consentimento" value="sim">
+      <span>{% t "registo.consentimento" %}</span>
+    </label>
+    {% if erros.consentimento %}<p class="erro">{{ erros.consentimento }}</p>{% endif %}
+  </div>
+
+  <button class="botao" type="submit">{% t "registo.submeter" %}</button>
+</form>
+
+<a class="ligacao-discreta" href="{% url 'acompanhamento:entrar' %}">{% t "entrar.ou" %}</a>
+{% endblock %}

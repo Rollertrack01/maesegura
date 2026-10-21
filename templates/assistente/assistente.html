@@ -1,0 +1,67 @@
+{% extends "base.html" %}
+{% load idioma %}
+{% block titulo %}{% t "assistente.titulo" %} — {% t "app.nome" %}{% endblock %}
+
+{% block conteudo %}
+<h1>{% t "assistente.titulo" %}</h1>
+<p class="explicacao">{% t "assistente.ajuda" %}</p>
+
+<p class="sem-rede" id="aviso-sem-rede" hidden>{% t "assistente.offline" %}</p>
+
+<form method="post" id="formulario-pergunta" novalidate>
+  {% csrf_token %}
+  <div class="campo">
+    <label for="pergunta">{% t "assistente.campo" %}</label>
+    <textarea id="pergunta" name="pergunta" maxlength="300" required>{{ pergunta }}</textarea>
+  </div>
+  <button class="botao" type="submit">{% t "assistente.submeter" %}</button>
+</form>
+
+<div id="respostas">
+{% if respondeu is not None %}
+  {% if resultados %}
+    {% for c, pontos in resultados %}
+      {% if c.gravidade == URGENTE and forloop.first %}
+      <div class="chamada-urgente">
+        <strong>{% t "alerta.urgente" %}</strong>
+        <span>{% t "alerta.urgente.texto" %}</span>
+        {% if unidade and unidade.telefone %}
+          <p><a href="tel:{{ unidade.telefone }}">{{ unidade.nome }} — {{ unidade.telefone }}</a></p>
+        {% endif %}
+      </div>
+      {% endif %}
+      <div class="resposta {% if c.gravidade == URGENTE %}resposta-urgente{% elif c.gravidade == ATENCAO %}resposta-atencao{% endif %}">
+        <h3>{% if idioma == "vmw" and c.pergunta_vmw %}{{ c.pergunta_vmw }}{% else %}{{ c.pergunta_pt }}{% endif %}</h3>
+        <p>{{ c.resposta_pt|linebreaksbr }}</p>
+        {% if idioma == "vmw" and c.resposta_vmw %}
+          <p>{{ c.resposta_vmw|linebreaksbr }}</p>
+          {% if not c.traducao_vmw_validada %}
+            <p class="meta">Tradução por rever.</p>
+          {% endif %}
+        {% endif %}
+        <p class="meta">
+          {% t "assistente.fonte" %}: {{ c.fonte }}
+          {% if c.validado_por %} · {% t "assistente.validado" %}: {{ c.validado_por }}{% endif %}
+        </p>
+      </div>
+    {% endfor %}
+  {% else %}
+    <div class="resposta resposta-atencao">
+      <p>{% t "assistente.sem.resposta" %}</p>
+      {% if unidade %}
+        <p class="meta">{{ unidade.nome }}{% if unidade.telefone %} — {{ unidade.telefone }}{% endif %}</p>
+      {% endif %}
+    </div>
+  {% endif %}
+{% endif %}
+</div>
+
+{% if destaques %}
+<h2>{% t "assistente.exemplos" %}</h2>
+<ul class="sugestoes">
+  {% for c in destaques %}
+    <li><button type="button" data-sugestao="{{ c.pergunta_pt }}">{{ c.pergunta_pt }}</button></li>
+  {% endfor %}
+</ul>
+{% endif %}
+{% endblock %}

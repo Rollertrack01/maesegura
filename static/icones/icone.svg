@@ -1,0 +1,5 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" role="img" aria-label="MãeSegura">
+  <rect width="512" height="512" rx="96" fill="#0f5c4a"/>
+  <path d="M256 392c-8 0-15-3-21-9l-94-94c-33-33-33-87 0-120 30-30 78-32 111-6l4 3 4-3c33-26 81-24 111 6 33 33 33 87 0 120l-94 94c-6 6-13 9-21 9z" fill="#ffffff" opacity="0.95"/>
+  <circle cx="256" cy="236" r="44" fill="#0f5c4a"/>
+</svg>

@@ -1,0 +1,8 @@
+{% extends "base.html" %}
+{% load idioma %}
+{% block titulo %}{% t "assistente.offline" %}{% endblock %}
+{% block conteudo %}
+<h1>{% t "assistente.offline" %}</h1>
+<p class="explicacao">{% t "assistente.ajuda" %}</p>
+<a class="botao" href="{% url 'assistente:assistente' %}">{% t "nav.assistente" %}</a>
+{% endblock %}

@@ -1,0 +1,244 @@
+/*
+  Interface pensada para telemóvel barato, ecrã pequeno, luz do sol e baixa literacia:
+  texto grande, alto contraste, uma coisa de cada vez, sem cartões estreitos.
+*/
+:root {
+  --verde: #0f5c4a;
+  --verde-claro: #e6f2ee;
+  --urgente: #a3141b;
+  --urgente-fundo: #fdeaea;
+  --atencao: #8a5a00;
+  --atencao-fundo: #fdf4e3;
+  --tinta: #16211e;
+  --tinta-suave: #5b6b66;
+  --linha: #d4ded9;
+  --fundo: #ffffff;
+  --raio: 10px;
+}
+
+* { box-sizing: border-box; }
+
+html { -webkit-text-size-adjust: 100%; }
+
+body {
+  margin: 0;
+  font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  font-size: 18px;
+  line-height: 1.55;
+  color: var(--tinta);
+  background: var(--fundo);
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+/* --- Topo ---------------------------------------------------------------- */
+.topo {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 14px 16px;
+  background: var(--verde);
+  color: #fff;
+}
+.marca { color: #fff; text-decoration: none; display: block; }
+.marca-nome { display: block; font-size: 1.25rem; font-weight: 700; letter-spacing: -0.01em; }
+.marca-lema { display: block; font-size: 0.8rem; opacity: 0.85; }
+.idioma {
+  color: #fff;
+  text-decoration: none;
+  border: 1px solid rgba(255, 255, 255, 0.55);
+  border-radius: 999px;
+  padding: 7px 14px;
+  font-size: 0.9rem;
+  white-space: nowrap;
+}
+
+/* --- Folha: ecrã inteiro, sem cartões estreitos --------------------------- */
+.folha {
+  flex: 1;
+  width: 100%;
+  max-width: 760px;
+  margin: 0 auto;
+  padding: 24px 16px 32px;
+}
+
+h1 { font-size: 1.6rem; line-height: 1.25; margin: 0 0 8px; }
+h2 { font-size: 1.15rem; margin: 28px 0 10px; }
+.explicacao { color: var(--tinta-suave); margin: 0 0 24px; }
+
+/* --- Formulários: largura total, campos altos ----------------------------- */
+.campo { margin-bottom: 22px; }
+.campo > label {
+  display: block;
+  font-weight: 600;
+  margin-bottom: 6px;
+}
+.campo .ajuda { display: block; color: var(--tinta-suave); font-size: 0.9rem; margin-bottom: 8px; }
+input[type="text"], input[type="tel"], input[type="number"], select, textarea {
+  width: 100%;
+  font: inherit;
+  padding: 14px;
+  border: 2px solid var(--linha);
+  border-radius: var(--raio);
+  background: #fff;
+  color: var(--tinta);
+}
+input:focus, select:focus, textarea:focus {
+  outline: 3px solid var(--verde);
+  outline-offset: 1px;
+  border-color: var(--verde);
+}
+textarea { min-height: 110px; resize: vertical; }
+
+.consentimento {
+  display: flex;
+  gap: 12px;
+  align-items: flex-start;
+  background: var(--verde-claro);
+  border-radius: var(--raio);
+  padding: 16px;
+}
+.consentimento input { width: 24px; height: 24px; margin-top: 3px; flex: none; }
+.consentimento span { font-size: 0.95rem; }
+
+.erro { color: var(--urgente); font-weight: 600; margin-top: 6px; }
+
+.botao {
+  display: block;
+  width: 100%;
+  font: inherit;
+  font-weight: 700;
+  padding: 16px;
+  border: none;
+  border-radius: var(--raio);
+  background: var(--verde);
+  color: #fff;
+  cursor: pointer;
+}
+.botao:active { transform: translateY(1px); }
+.botao-secundario { background: #fff; color: var(--verde); border: 2px solid var(--verde); }
+
+.ligacao-discreta { display: inline-block; margin-top: 18px; color: var(--verde); }
+
+/* --- Blocos de informação ------------------------------------------------- */
+.destaque {
+  background: var(--verde-claro);
+  border-radius: var(--raio);
+  padding: 18px;
+  margin-bottom: 18px;
+}
+.destaque .rotulo { display: block; font-size: 0.85rem; color: var(--tinta-suave); text-transform: uppercase; letter-spacing: 0.04em; }
+.destaque .valor { display: block; font-size: 1.7rem; font-weight: 700; line-height: 1.2; }
+
+.codigo-gestante {
+  font-size: 2rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  font-family: ui-monospace, "SF Mono", Menlo, monospace;
+}
+
+/* --- Lista de consultas --------------------------------------------------- */
+.consultas { list-style: none; margin: 0; padding: 0; }
+.consultas li {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 14px 0;
+  border-bottom: 1px solid var(--linha);
+}
+.consultas .quando { font-weight: 600; }
+.consultas .semana { color: var(--tinta-suave); font-size: 0.9rem; }
+.etiqueta { font-size: 0.8rem; padding: 4px 10px; border-radius: 999px; white-space: nowrap; }
+.etiqueta-marcada { background: var(--verde-claro); color: var(--verde); }
+.etiqueta-realizada { background: #eef1f0; color: var(--tinta-suave); }
+.etiqueta-atraso { background: var(--atencao-fundo); color: var(--atencao); }
+
+/* --- Respostas do assistente ---------------------------------------------- */
+.resposta { border-left: 5px solid var(--linha); padding: 4px 0 4px 16px; margin: 22px 0; }
+.resposta h3 { margin: 0 0 8px; font-size: 1.05rem; }
+.resposta p { margin: 0 0 10px; }
+.resposta .meta { font-size: 0.82rem; color: var(--tinta-suave); }
+.resposta-urgente { border-left-color: var(--urgente); background: var(--urgente-fundo); padding: 16px; border-radius: 0 var(--raio) var(--raio) 0; }
+.resposta-atencao { border-left-color: var(--atencao); background: var(--atencao-fundo); padding: 16px; border-radius: 0 var(--raio) var(--raio) 0; }
+
+.chamada-urgente {
+  background: var(--urgente);
+  color: #fff;
+  border-radius: var(--raio);
+  padding: 18px;
+  margin-bottom: 20px;
+}
+.chamada-urgente strong { display: block; font-size: 1.15rem; margin-bottom: 6px; }
+.chamada-urgente a { color: #fff; font-weight: 700; }
+
+.sugestoes { list-style: none; margin: 10px 0 0; padding: 0; }
+.sugestoes li { border-bottom: 1px solid var(--linha); }
+.sugestoes button {
+  width: 100%;
+  text-align: left;
+  font: inherit;
+  background: none;
+  border: none;
+  padding: 14px 0;
+  color: var(--verde);
+  cursor: pointer;
+}
+
+/* --- Painel público ------------------------------------------------------- */
+.metricas { display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); gap: 14px; }
+.metrica { background: var(--verde-claro); border-radius: var(--raio); padding: 16px; }
+.metrica .numero { display: block; font-size: 1.9rem; font-weight: 700; line-height: 1.1; }
+.metrica .nome { display: block; font-size: 0.88rem; color: var(--tinta-suave); }
+.barra-idioma { margin: 12px 0; }
+.barra-idioma .nome { display: flex; justify-content: space-between; font-size: 0.9rem; margin-bottom: 4px; }
+.barra-idioma .calha { display: block; background: var(--verde-claro); border-radius: 999px; height: 12px; overflow: hidden; }
+.barra-idioma .preenchido { display: block; background: var(--verde); height: 100%; min-width: 2px; }
+
+/* --- Rodapé --------------------------------------------------------------- */
+.barra {
+  display: flex;
+  border-top: 1px solid var(--linha);
+  background: #fff;
+}
+.barra a {
+  flex: 1;
+  text-align: center;
+  padding: 16px 8px;
+  color: var(--verde);
+  text-decoration: none;
+  font-size: 0.92rem;
+  font-weight: 600;
+}
+.aviso-legal {
+  margin: 0;
+  padding: 12px 16px 20px;
+  font-size: 0.78rem;
+  color: var(--tinta-suave);
+  text-align: center;
+  background: #fff;
+}
+.sem-rede {
+  background: var(--atencao-fundo);
+  color: var(--atencao);
+  padding: 12px 16px;
+  font-size: 0.9rem;
+  text-align: center;
+}
+[hidden] { display: none !important; }
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --fundo: #0e1513;
+    --tinta: #eaf1ee;
+    --tinta-suave: #9db0aa;
+    --linha: #27352f;
+    --verde-claro: #16302a;
+    --urgente-fundo: #351417;
+    --atencao-fundo: #332611;
+  }
+  input, select, textarea { background: #121b18; }
+  .barra, .aviso-legal { background: var(--fundo); }
+}

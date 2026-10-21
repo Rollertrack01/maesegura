@@ -1,0 +1,6 @@
+__pycache__/
+*.py[cod]
+dados-locais.sqlite3
+staticfiles/
+.env
+*.zip
