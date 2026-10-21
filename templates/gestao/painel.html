@@ -1,0 +1,124 @@
+{% extends "gestao/base.html" %}
+{% load gestao_extras %}
+{% block titulo %}Painel principal{% endblock %}
+
+{% block conteudo %}
+<header>
+  <h1>Painel principal</h1>
+  <p class="sub">Estado do piloto MãeSegura.</p>
+</header>
+
+{% if mostrar_primeiros_passos %}
+<div class="cartao">
+  <h2>Começar</h2>
+  <p class="sub" style="margin-bottom:8px">
+    Quatro passos até a aplicação estar útil a uma grávida. Pode fazê-los por qualquer ordem.
+  </p>
+  <ul class="passos">
+    <li class="{% if passos.unidades %}feito{% endif %}">
+      <span class="numero">{% if passos.unidades %}{% icone "feito" 16 %}{% else %}1{% endif %}</span>
+      <span class="texto">
+        <strong>Registar a unidade sanitária do piloto</strong>
+        <span>É para onde a aplicação encaminha quem tem um sinal de perigo.</span>
+      </span>
+      {% if perfil_gestor and not passos.unidades %}
+      <span class="accao"><a class="botao botao-pequeno" href="{% url 'gestao:unidade-nova' %}">Registar</a></span>
+      {% endif %}
+    </li>
+    <li class="{% if passos.validacao %}feito{% endif %}">
+      <span class="numero">{% if passos.validacao %}{% icone "feito" 16 %}{% else %}2{% endif %}</span>
+      <span class="texto">
+        <strong>Validar o conteúdo clínico</strong>
+        <span>Enquanto não houver conteúdo validado, o assistente não responde a nada.</span>
+      </span>
+      {% if perfil_clinico and not passos.validacao %}
+      <span class="accao"><a class="botao botao-pequeno" href="{% url 'gestao:conteudos' %}?estado=por-validar">Rever</a></span>
+      {% endif %}
+    </li>
+    <li class="{% if passos.traducoes %}feito{% endif %}">
+      <span class="numero">{% if passos.traducoes %}{% icone "feito" 16 %}{% else %}3{% endif %}</span>
+      <span class="texto">
+        <strong>Rever as traduções para Emakhuwa</strong>
+        <span>Os textos actuais são rascunhos e precisam de um falante nativo.</span>
+      </span>
+      {% if perfil_clinico and not passos.traducoes %}
+      <span class="accao"><a class="botao botao-pequeno botao-linha" href="{% url 'gestao:conteudos' %}?estado=traducao">Rever</a></span>
+      {% endif %}
+    </li>
+    <li class="{% if passos.gestantes %}feito{% endif %}">
+      <span class="numero">{% if passos.gestantes %}{% icone "feito" 16 %}{% else %}4{% endif %}</span>
+      <span class="texto">
+        <strong>Testar com utilizadoras reais</strong>
+        <span>Abra a aplicação no telemóvel e registe uma gravidez de teste.</span>
+      </span>
+      <span class="accao"><a class="botao botao-pequeno botao-linha" href="/" target="_blank" rel="noopener">Abrir</a></span>
+    </li>
+  </ul>
+</div>
+{% endif %}
+
+{% if por_validar %}
+<div class="aviso">
+  <strong>{{ por_validar }} conteúdo(s) ainda não foram validados por um clínico.</strong>
+  Enquanto isso, o assistente responde sempre a encaminhar para a unidade sanitária.
+  É o comportamento desenhado, não uma avaria.
+</div>
+{% endif %}
+
+<div class="cartao">
+  <h2>Requer a sua atenção</h2>
+  {% if pendencias %}
+  <ul class="atencao-lista">
+    {% for p in pendencias %}
+    <li class="{% if p.grave %}grave{% endif %}">
+      <a href="{{ p.url }}"><span class="ponto"></span>{{ p.texto }}</a>
+    </li>
+    {% endfor %}
+  </ul>
+  {% else %}
+  <p class="vazio">Nada pendente do seu lado.</p>
+  {% endif %}
+</div>
+
+<h2 class="seccao-titulo">Conteúdo clínico</h2>
+<div class="indicadores">
+  <div class="indicador{% if por_validar %} alerta{% endif %}">
+    <span class="numero">{{ conteudos.validados }}/{{ conteudos.total }}</span>
+    <span class="nome">Validados por clínico</span>
+  </div>
+  <div class="indicador">
+    <span class="numero">{{ conteudos.com_emakhuwa }}</span>
+    <span class="nome">Com texto em Emakhuwa</span>
+  </div>
+  <div class="indicador">
+    <span class="numero">{{ conteudos.traducoes_validadas }}</span>
+    <span class="nome">Traduções revistas</span>
+  </div>
+</div>
+
+{% if perfil_gestor %}
+<h2 class="seccao-titulo">Acompanhamento</h2>
+<div class="indicadores">
+  <div class="indicador">
+    <span class="numero">{{ gestantes }}</span>
+    <span class="nome">Mulheres em acompanhamento</span>
+  </div>
+  <div class="indicador">
+    <span class="numero">{{ consultas_realizadas }}/{{ consultas_marcadas }}</span>
+    <span class="nome">Consultas realizadas</span>
+  </div>
+  <div class="indicador{% if consultas_em_atraso %} alerta{% endif %}">
+    <span class="numero">{{ consultas_em_atraso }}</span>
+    <span class="nome">Consultas em atraso</span>
+  </div>
+  <div class="indicador">
+    <span class="numero">{{ perguntas }}</span>
+    <span class="nome">Perguntas respondidas</span>
+  </div>
+  <div class="indicador{% if encaminhamentos %} alerta{% endif %}">
+    <span class="numero">{{ encaminhamentos }}</span>
+    <span class="nome">Encaminhamentos por sinal de perigo</span>
+  </div>
+</div>
+{% endif %}
+{% endblock %}

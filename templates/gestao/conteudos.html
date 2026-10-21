@@ -1,0 +1,105 @@
+{% extends "gestao/base.html" %}
+{% load gestao_extras %}
+{% block titulo %}Conteúdos clínicos{% endblock %}
+
+{% block conteudo %}
+<header>
+  <h1>Conteúdos clínicos</h1>
+  <p class="sub">
+    {% if pode_validar %}
+      Reveja cada texto contra as normas do MISAU antes de validar. O seu nome fica
+      gravado em cada resposta e é mostrado à utilizadora.
+    {% else %}
+      Pode consultar, mas alterar e assinar estes textos cabe a um profissional de saúde.
+    {% endif %}
+  </p>
+</header>
+
+<div class="filtros">
+  <div class="pilulas">
+    <a href="?" class="pilula {% if not estado %}activo{% endif %}">Todos</a>
+    <a href="?estado=por-validar" class="pilula {% if estado == 'por-validar' %}activo{% endif %}">Por validar</a>
+    <a href="?estado=validados" class="pilula {% if estado == 'validados' %}activo{% endif %}">Validados</a>
+    <a href="?estado=traducao" class="pilula {% if estado == 'traducao' %}activo{% endif %}">Tradução por rever</a>
+  </div>
+  <form method="get" role="search">
+    {% if estado %}<input type="hidden" name="estado" value="{{ estado }}">{% endif %}
+    <input type="search" name="q" value="{{ procura }}" placeholder="Procurar pergunta ou palavra-chave" aria-label="Procurar">
+    <button class="botao botao-linha botao-pequeno" type="submit">Procurar</button>
+  </form>
+</div>
+
+{% if itens %}
+<div class="envolve-tabela">
+<table class="tabela">
+  <thead>
+    <tr><th>Pergunta</th><th>Tópico</th><th>Gravidade</th><th>Estado</th><th class="accoes">Acções</th></tr>
+  </thead>
+  <tbody>
+    {% for c in itens %}
+    <tr>
+      <td class="principal" data-rotulo="Pergunta">
+        <a href="{% url 'gestao:conteudo-editar' c.pk %}">{{ c.pergunta_pt }}</a>
+        {% if c.resposta_vmw and not c.traducao_vmw_validada %}
+          <br><span class="selo selo-neutro">Emakhuwa por rever</span>
+        {% endif %}
+      </td>
+      <td data-rotulo="Tópico">{{ c.topico.nome_pt }}</td>
+      <td data-rotulo="Gravidade">
+        {% if c.gravidade == "urgente" %}<span class="selo selo-urgente">Sinal de perigo</span>
+        {% elif c.gravidade == "atencao" %}<span class="selo selo-espera">Atenção</span>
+        {% else %}<span class="selo selo-neutro">Informativo</span>{% endif %}
+      </td>
+      <td data-rotulo="Estado">
+        {% if c.validado %}
+          <span>
+            <span class="selo selo-ok">Validado</span>
+            <span class="discreto" style="display:block">{{ c.validado_por }} · {{ c.validado_em|date:"j M Y" }}</span>
+          </span>
+        {% else %}
+          <span class="selo selo-espera">Por validar</span>
+        {% endif %}
+      </td>
+      <td class="accoes" data-rotulo="Acções">
+        <a class="botao botao-linha botao-pequeno" href="{% url 'gestao:conteudo-editar' c.pk %}">Abrir</a>
+        {% if pode_validar %}
+          {% if c.validado %}
+          <form method="post" action="{% url 'gestao:conteudo-retirar' c.pk %}"
+                data-confirmar="Retirar a validação faz esta resposta deixar de ser mostrada às utilizadoras. Continuar?">
+            {% csrf_token %}
+            <input type="hidden" name="proximo" value="{{ request.get_full_path }}">
+            <button class="botao botao-perigo botao-pequeno" type="submit">Retirar</button>
+          </form>
+          {% else %}
+          <form method="post" action="{% url 'gestao:conteudo-validar' c.pk %}">
+            {% csrf_token %}
+            <input type="hidden" name="proximo" value="{{ request.get_full_path }}">
+            <button class="botao botao-pequeno" type="submit">Validar</button>
+          </form>
+          {% endif %}
+        {% endif %}
+      </td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+</div>
+{% else %}
+<div class="estado-vazio">
+  {% icone "vazio" 40 %}
+  <h3>
+    {% if procura %}Nada encontrado para «{{ procura }}»
+    {% elif estado == 'por-validar' %}Não há nada à espera de validação
+    {% elif estado == 'traducao' %}Todas as traduções foram revistas
+    {% else %}Ainda não há conteúdo clínico{% endif %}
+  </h3>
+  <p>
+    {% if procura %}Experimente outra palavra, ou veja a lista completa.
+    {% elif estado == 'por-validar' %}Todo o conteúdo já foi revisto e assinado. O assistente está a responder.
+    {% elif estado == 'traducao' %}Nenhum texto em Emakhuwa está à espera de revisão.
+    {% else %}O conteúdo inicial carrega-se com o comando <span class="codigo">carregar_conhecimento</span>. Fale com a equipa técnica.{% endif %}
+  </p>
+  {% if procura or estado %}<a class="botao botao-linha" href="{% url 'gestao:conteudos' %}">Ver todos</a>{% endif %}
+</div>
+{% endif %}
+{% endblock %}

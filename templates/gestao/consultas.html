@@ -1,0 +1,72 @@
+{% extends "gestao/base.html" %}
+{% load gestao_extras %}
+{% block titulo %}Consultas{% endblock %}
+
+{% block conteudo %}
+<header>
+  <h1>Consultas pré-natais</h1>
+  <p class="sub">Calendário de 8 contactos da OMS. Nenhuma mulher é identificada pelo nome — só pelo código que ela guarda.</p>
+</header>
+
+<div class="filtros">
+  <div class="pilulas">
+    <a href="?" class="pilula {% if not estado %}activo{% endif %}">Todas</a>
+    <a href="?estado=atraso" class="pilula {% if estado == 'atraso' %}activo{% endif %}">Em atraso</a>
+    <a href="?estado=proximas" class="pilula {% if estado == 'proximas' %}activo{% endif %}">Próximas</a>
+    <a href="?estado=realizadas" class="pilula {% if estado == 'realizadas' %}activo{% endif %}">Realizadas</a>
+  </div>
+</div>
+
+{% if itens %}
+<div class="envolve-tabela">
+<table class="tabela">
+  <thead>
+    <tr><th>Código</th><th>Contacto</th><th>Data prevista</th><th>Unidade</th><th>Estado</th><th class="accoes">Acções</th></tr>
+  </thead>
+  <tbody>
+    {% for c in itens %}
+    <tr>
+      <td class="principal codigo" data-rotulo="Código">{{ c.gestante.codigo }}</td>
+      <td data-rotulo="Contacto">{{ c.numero }} de 8 · {{ c.semana_alvo }}ª semana</td>
+      <td data-rotulo="Data prevista">{{ c.data_prevista|date:"j M Y" }}</td>
+      <td data-rotulo="Unidade">{{ c.gestante.unidade_sanitaria.nome|default:"—" }}</td>
+      <td data-rotulo="Estado">
+        {% if c.estado == "realizado" %}<span class="selo selo-ok">Realizada</span>
+        {% elif c.estado == "falhado" %}<span class="selo selo-neutro">Não realizada</span>
+        {% elif c.data_prevista < hoje %}<span class="selo selo-urgente">Em atraso</span>
+        {% else %}<span class="selo selo-espera">Marcada</span>{% endif %}
+      </td>
+      <td class="accoes" data-rotulo="Acções">
+        <form method="post" action="{% url 'gestao:consulta-marcar' c.pk %}">
+          {% csrf_token %}
+          <input type="hidden" name="proximo" value="{{ request.get_full_path }}">
+          {% if c.estado == "realizado" %}
+            <button class="botao botao-linha botao-pequeno" name="estado" value="agendado" type="submit">Reabrir</button>
+          {% else %}
+            <button class="botao botao-pequeno" name="estado" value="realizado" type="submit">Realizada</button>
+            <button class="botao botao-linha botao-pequeno" name="estado" value="falhado" type="submit">Não compareceu</button>
+          {% endif %}
+        </form>
+      </td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+</div>
+{% else %}
+<div class="estado-vazio">
+  {% icone "calendario" 40 %}
+  <h3>
+    {% if estado == 'atraso' %}Nenhuma consulta em atraso
+    {% elif estado == 'realizadas' %}Ainda não há consultas realizadas
+    {% else %}Ainda não há consultas marcadas{% endif %}
+  </h3>
+  <p>
+    {% if estado == 'atraso' %}Todas as consultas marcadas estão dentro do prazo.
+    {% elif estado == 'realizadas' %}Assim que marcar uma consulta como realizada, ela aparece aqui.
+    {% else %}As consultas são criadas automaticamente quando uma mulher se regista na aplicação.{% endif %}
+  </p>
+  {% if estado %}<a class="botao botao-linha" href="{% url 'gestao:consultas' %}">Ver todas</a>{% endif %}
+</div>
+{% endif %}
+{% endblock %}

@@ -48,6 +48,17 @@ volumes:
   maesegura-estaticos:
 
 networks:
+  # Subrede fixada de propósito. A VPS partilhada já esgotou as reservas
+  # automáticas do Docker (as quinze /16 de 172.x e as dezasseis /20 de
+  # 192.168.x estão todas atribuídas), pelo que uma rede sem subrede
+  # declarada falha com "all predefined address pools have been fully
+  # subnetted". Ao declará-la, este projecto deixa de depender de haver
+  # reserva livre. Antes de mudar este valor, confirmar que não colide:
+  #   docker network inspect $(docker network ls -q) \
+  #     --format '{{.Name}} {{range .IPAM.Config}}{{.Subnet}}{{end}}'
   interna:
+    ipam:
+      config:
+        - subnet: 192.168.240.0/24
   web:
     external: true

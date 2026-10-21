@@ -1,0 +1,33 @@
+{% extends "gestao/base.html" %}
+{% load gestao_extras %}
+{% block titulo %}{% if item %}{{ item.nome }}{% else %}Nova unidade{% endif %}{% endblock %}
+
+{% block conteudo %}
+<header>
+  <h1>{% if item %}Editar unidade sanitária{% else %}Nova unidade sanitária{% endif %}</h1>
+  <p class="sub">Telefone a sério, confirmado por chamada. É para onde se encaminha quem tem um sinal de perigo.</p>
+</header>
+
+<form method="post" class="formulario" novalidate>
+  {% csrf_token %}
+  <div class="seccao">
+    <h2>Identificação</h2>
+    <div class="par">
+      {% with campo=formulario.nome %}{% include "gestao/_campo.html" %}{% endwith %}
+      {% with campo=formulario.distrito %}{% include "gestao/_campo.html" %}{% endwith %}
+      {% with campo=formulario.tipo %}{% include "gestao/_campo.html" %}{% endwith %}
+    </div>
+  </div>
+  <div class="seccao">
+    <h2>Contacto</h2>
+    <div class="par">
+      {% with campo=formulario.telefone %}{% include "gestao/_campo.html" %}{% endwith %}
+      {% with campo=formulario.confirmado_em %}{% include "gestao/_campo.html" %}{% endwith %}
+    </div>
+  </div>
+  <div class="accoes-formulario">
+    <button class="botao" type="submit">Guardar</button>
+    <a class="botao botao-linha" href="{% url 'gestao:unidades' %}">Cancelar</a>
+  </div>
+</form>
+{% endblock %}

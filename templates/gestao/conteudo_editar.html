@@ -1,0 +1,83 @@
+{% extends "gestao/base.html" %}
+{% load gestao_extras %}
+{% block titulo %}{{ item.pergunta_pt|truncatechars:40 }}{% endblock %}
+
+{% block conteudo %}
+<header>
+  <h1>Rever conteúdo clínico</h1>
+  <p class="sub">
+    {% if item.validado %}
+      Validado por {{ item.validado_por }} em {{ item.validado_em|date:"j \d\e F \d\e Y" }}.
+      Esta resposta está a ser servida às utilizadoras.
+    {% else %}
+      Ainda por validar. Não está a ser servida a ninguém.
+    {% endif %}
+  </p>
+</header>
+
+{% if not pode_editar %}
+<div class="aviso">
+  <strong>Só leitura.</strong>
+  O seu perfil permite consultar o conteúdo clínico, mas alterá-lo e assiná-lo
+  cabe a um profissional de saúde.
+</div>
+{% endif %}
+
+<form method="post" class="formulario" novalidate>
+  {% csrf_token %}
+
+  <div class="seccao">
+    <h2>Classificação</h2>
+    <div class="par">
+      {% with campo=formulario.topico %}{% include "gestao/_campo.html" %}{% endwith %}
+      {% with campo=formulario.gravidade %}{% include "gestao/_campo.html" %}{% endwith %}
+    </div>
+    {% with campo=formulario.destaque %}{% include "gestao/_caixa.html" %}{% endwith %}
+  </div>
+
+  <div class="seccao">
+    <h2>Português</h2>
+    {% with campo=formulario.pergunta_pt %}{% include "gestao/_campo.html" %}{% endwith %}
+    {% with campo=formulario.resposta_pt %}{% include "gestao/_campo.html" %}{% endwith %}
+    {% with campo=formulario.palavras_chave_pt %}{% include "gestao/_campo.html" %}{% endwith %}
+  </div>
+
+  <div class="seccao">
+    <h2>Emakhuwa</h2>
+    {% with campo=formulario.pergunta_vmw %}{% include "gestao/_campo.html" %}{% endwith %}
+    {% with campo=formulario.resposta_vmw %}{% include "gestao/_campo.html" %}{% endwith %}
+    {% with campo=formulario.palavras_chave_vmw %}{% include "gestao/_campo.html" %}{% endwith %}
+    {% with campo=formulario.traducao_vmw_validada %}{% include "gestao/_caixa.html" %}{% endwith %}
+  </div>
+
+  <div class="seccao">
+    <h2>Origem</h2>
+    {% with campo=formulario.fonte %}{% include "gestao/_campo.html" %}{% endwith %}
+  </div>
+
+  <div class="accoes-formulario">
+    {% if pode_editar %}<button class="botao" type="submit">Guardar</button>{% endif %}
+    <a class="botao botao-linha" href="{% url 'gestao:conteudos' %}">Voltar</a>
+  </div>
+</form>
+
+{% if pode_editar %}
+<div class="cartao" style="margin-top:20px">
+  <h2>Validação clínica</h2>
+  {% if item.validado %}
+    <p>Ao retirar a validação, esta resposta deixa imediatamente de ser servida.</p>
+    <form method="post" action="{% url 'gestao:conteudo-retirar' item.pk %}"
+          data-confirmar="Retirar a validação faz esta resposta deixar de ser mostrada às utilizadoras. Continuar?">
+      {% csrf_token %}
+      <button class="botao botao-perigo" type="submit">Retirar validação</button>
+    </form>
+  {% else %}
+    <p>Ao validar, assume a revisão deste texto. O seu nome passa a aparecer à utilizadora.</p>
+    <form method="post" action="{% url 'gestao:conteudo-validar' item.pk %}">
+      {% csrf_token %}
+      <button class="botao" type="submit">Validar e publicar</button>
+    </form>
+  {% endif %}
+</div>
+{% endif %}
+{% endblock %}

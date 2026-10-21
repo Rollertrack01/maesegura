@@ -1,0 +1,59 @@
+{% extends "gestao/base.html" %}
+{% load gestao_extras %}
+{% block titulo %}Equipa e perfis{% endblock %}
+
+{% block conteudo %}
+<header>
+  <h1>Equipa e perfis</h1>
+  <p class="sub">Quem entra no painel e o que pode fazer lá dentro.</p>
+</header>
+
+<div class="aviso">
+  <strong>Clínico e Gestor não são níveis, são funções.</strong>
+  O Gestor coordena o projecto mas não pode validar conteúdo clínico — a assinatura
+  que a grávida vê tem de ser de quem tem competência para a dar.
+</div>
+
+<div class="envolve-tabela" style="margin-bottom:28px">
+<table class="tabela">
+  <thead><tr><th>Nome</th><th>Utilizador</th><th>Perfil</th></tr></thead>
+  <tbody>
+    {% for p in pessoas %}
+    <tr>
+      <td class="principal" data-rotulo="Nome">{{ p.get_full_name|default:"—" }}</td>
+      <td class="codigo" data-rotulo="Utilizador">{{ p.username }}</td>
+      <td data-rotulo="Perfil">
+        {% if p.is_superuser %}<span class="selo selo-neutro">Administração técnica</span>
+        {% else %}{% for g in p.groups.all %}<span class="selo selo-ok">{{ g.name }}</span> {% empty %}
+          <span class="selo selo-espera">Sem perfil</span>{% endfor %}{% endif %}
+      </td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+</div>
+
+<h2 class="seccao-titulo" style="margin-top:0">Criar conta</h2>
+<form method="post" class="formulario" novalidate>
+  {% csrf_token %}
+  <div class="seccao">
+    <h2>Pessoa</h2>
+    <div class="par">
+      {% with campo=formulario.first_name %}{% include "gestao/_campo.html" %}{% endwith %}
+      {% with campo=formulario.last_name %}{% include "gestao/_campo.html" %}{% endwith %}
+      {% with campo=formulario.email %}{% include "gestao/_campo.html" %}{% endwith %}
+    </div>
+  </div>
+  <div class="seccao">
+    <h2>Acesso</h2>
+    <div class="par">
+      {% with campo=formulario.username %}{% include "gestao/_campo.html" %}{% endwith %}
+      {% with campo=formulario.senha %}{% include "gestao/_campo.html" %}{% endwith %}
+    </div>
+    {% with campo=formulario.perfil %}{% include "gestao/_campo.html" %}{% endwith %}
+  </div>
+  <div class="accoes-formulario">
+    <button class="botao" type="submit">Criar conta</button>
+  </div>
+</form>
+{% endblock %}

@@ -24,6 +24,7 @@ dados, interface e base de conhecimento.
    ligação.
 5. **Painel público de métricas** em `/painel/` e `/api/metricas.json`, com
    dados agregados e anónimos.
+6. **Painel de gestão próprio** em `/gestao/`, com três perfis separados.
 
 ## Duas decisões que explicam o resto do código
 
@@ -36,8 +37,26 @@ nenhuma funcionalidade depende dela.
 
 **Nada é servido sem validação humana registada.** Um conteúdo só chega à
 utilizadora se tiver `validado_por` e `validado_em` preenchidos por um clínico
-em `/gestao/`. O carregador de conteúdo inicial deixa tudo por validar de
+no painel de gestão. O carregador de conteúdo inicial deixa tudo por validar de
 propósito. A regra é verificável em `apps/assistente/tests.py`.
+
+## Quem faz o quê: três perfis, não três níveis
+
+| Perfil | Vê e faz | Não pode |
+|---|---|---|
+| **Clínico** | Revê, edita e **assina** o conteúdo clínico; revê traduções | Gerir consultas, unidades ou contas |
+| **Gestor** | Indicadores, consultas, gestantes, unidades sanitárias, exportação | **Validar ou alterar conteúdo clínico** |
+| **Superuser** | Tudo, mais criação de contas e Django admin em `/sistema/` | — |
+
+A linha que importa é a do meio. O gestor coordena o projecto, mas não assina
+conteúdo clínico, por mais chefe que seja — a assinatura que a grávida vê tem de
+ser de quem tem competência para a dar. É isso que torna defensável, perante o
+UNICEF, a afirmação de que nenhum conteúdo clínico chega à utilizadora sem
+revisão profissional. Há testes em `apps/gestao/tests.py` que falham se alguém
+abrir essa porta.
+
+O Django admin **não** é o painel de trabalho: vive em `/sistema/`, é só para
+manutenção técnica, e o trabalho do dia-a-dia faz-se em `/gestao/`.
 
 ## Estado da base de conhecimento
 
@@ -57,6 +76,7 @@ antes de qualquer uso real:**
 python -m venv .venv && source .venv/bin/activate
 pip install -r requirements.txt
 python manage.py migrate
+python manage.py criar_perfis
 python manage.py carregar_conhecimento --validar-como "Dra. Exemplo (DEMONSTRAÇÃO)"
 python manage.py createsuperuser
 python manage.py runserver
@@ -71,10 +91,10 @@ infra-estrutura. Com Docker: `docker compose up --build`.
 python manage.py test
 ```
 
-45 testes. Cobrem o cálculo da data prevista do parto, o calendário da OMS, a
+62 testes. Cobrem o cálculo da data prevista do parto, o calendário da OMS, a
 regra de validação clínica, a precisão do motor de busca (incluindo perguntas
-fora do domínio, que não devem devolver nada) e a ausência de dados pessoais no
-painel público.
+fora do domínio, que não devem devolver nada), a separação de perfis no painel
+de gestão e a ausência de dados pessoais no painel público e nas listagens.
 
 ## Dados e privacidade
 
@@ -98,6 +118,7 @@ apps/core/           Idioma da interface, healthcheck, service worker
 apps/acompanhamento/ Gestante, consultas, calendário da OMS, telemetria
 apps/assistente/     Conteúdo clínico, validação, motor de busca
 apps/painel/         Métricas públicas (HTML e JSON)
+apps/gestao/         Painel de gestão próprio, perfis e validação clínica
 static/js/app.js     Espelho do motor de busca, para funcionar offline
 deploy/              Bloco do Caddy para a VPS partilhada
 ```

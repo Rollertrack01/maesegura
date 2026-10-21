@@ -22,6 +22,7 @@ html { -webkit-text-size-adjust: 100%; }
 
 body {
   margin: 0;
+  -webkit-font-smoothing: antialiased;
   font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
   font-size: 18px;
   line-height: 1.55;
@@ -37,20 +38,22 @@ body {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: 12px;
   padding: 14px 16px;
   background: var(--verde);
   color: #fff;
 }
-.marca { color: #fff; text-decoration: none; display: block; }
+.marca { color: #fff; text-decoration: none; display: block; margin-right: 12px; }
 .marca-nome { display: block; font-size: 1.25rem; font-weight: 700; letter-spacing: -0.01em; }
 .marca-lema { display: block; font-size: 0.8rem; opacity: 0.85; }
 .idioma {
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
   color: #fff;
   text-decoration: none;
   border: 1px solid rgba(255, 255, 255, 0.55);
   border-radius: 999px;
-  padding: 7px 14px;
+  padding: 0 16px;
   font-size: 0.9rem;
   white-space: nowrap;
 }
@@ -79,6 +82,7 @@ h2 { font-size: 1.15rem; margin: 28px 0 10px; }
 input[type="text"], input[type="tel"], input[type="number"], select, textarea {
   width: 100%;
   font: inherit;
+  min-height: 54px;
   padding: 14px;
   border: 2px solid var(--linha);
   border-radius: var(--raio);
@@ -94,23 +98,25 @@ textarea { min-height: 110px; resize: vertical; }
 
 .consentimento {
   display: flex;
-  gap: 12px;
   align-items: flex-start;
   background: var(--verde-claro);
   border-radius: var(--raio);
   padding: 16px;
 }
-.consentimento input { width: 24px; height: 24px; margin-top: 3px; flex: none; }
+.consentimento input { width: 24px; height: 24px; margin: 3px 12px 0 0; flex: none; }
 .consentimento span { font-size: 0.95rem; }
 
 .erro { color: var(--urgente); font-weight: 600; margin-top: 6px; }
 
 .botao {
-  display: block;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   width: 100%;
+  min-height: 54px;
   font: inherit;
   font-weight: 700;
-  padding: 16px;
+  padding: 14px 16px;
   border: none;
   border-radius: var(--raio);
   background: var(--verde);
@@ -145,11 +151,11 @@ textarea { min-height: 110px; resize: vertical; }
   display: flex;
   align-items: baseline;
   justify-content: space-between;
-  gap: 12px;
   padding: 14px 0;
   border-bottom: 1px solid var(--linha);
 }
 .consultas .quando { font-weight: 600; }
+.consultas li > span:first-child { margin-right: 12px; }
 .consultas .semana { color: var(--tinta-suave); font-size: 0.9rem; }
 .etiqueta { font-size: 0.8rem; padding: 4px 10px; border-radius: 999px; white-space: nowrap; }
 .etiqueta-marcada { background: var(--verde-claro); color: var(--verde); }
@@ -178,11 +184,12 @@ textarea { min-height: 110px; resize: vertical; }
 .sugestoes li { border-bottom: 1px solid var(--linha); }
 .sugestoes button {
   width: 100%;
+  min-height: 52px;
   text-align: left;
   font: inherit;
   background: none;
   border: none;
-  padding: 14px 0;
+  padding: 12px 0;
   color: var(--verde);
   cursor: pointer;
 }
@@ -199,14 +206,21 @@ textarea { min-height: 110px; resize: vertical; }
 
 /* --- Rodapé --------------------------------------------------------------- */
 .barra {
+  position: sticky;
+  bottom: 0;
   display: flex;
   border-top: 1px solid var(--linha);
   background: #fff;
+  padding-bottom: env(safe-area-inset-bottom);
 }
 .barra a {
   flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 56px;
   text-align: center;
-  padding: 16px 8px;
+  padding: 8px;
   color: var(--verde);
   text-decoration: none;
   font-size: 0.92rem;
@@ -241,4 +255,23 @@ textarea { min-height: 110px; resize: vertical; }
   }
   input, select, textarea { background: #121b18; }
   .barra, .aviso-legal { background: var(--fundo); }
+}
+
+
+/* --- Acessibilidade e ecrãs grandes --------------------------------------- */
+:focus-visible { outline: 3px solid var(--verde); outline-offset: 2px; border-radius: 6px; }
+
+.consentimento input { min-height: 0; }
+
+@media (min-width: 900px) {
+  /* em tablet e computador a folha centra-se, mas o texto não estica demais */
+  body { font-size: 19px; }
+  .folha { padding: 36px 24px 44px; }
+  h1 { font-size: 1.9rem; }
+  .botao { max-width: 420px; }
+  .barra a { min-height: 60px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  * { animation: none !important; transition: none !important; }
 }

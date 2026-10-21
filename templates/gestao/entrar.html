@@ -1,0 +1,51 @@
+{% load static %}<!doctype html>
+<html lang="pt">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>Entrar — MãeSegura</title>
+<link rel="icon" href="{% static 'icones/icone.svg' %}" type="image/svg+xml">
+<link rel="stylesheet" href="{% static 'css/gestao.css' %}">
+</head>
+<body>
+<div class="entrada">
+
+  <section class="entrada-marca">
+    <img class="logo" src="{% static 'icones/icone.svg' %}" alt="MãeSegura">
+    <h1>MãeSegura</h1>
+    <p>Acompanhamento da gravidez e do pós-parto em português e Emakhuwa.</p>
+    <p class="nota">
+      Este painel serve a equipa clínica e a coordenação. Nenhuma resposta chega
+      às utilizadoras sem ser revista e assinada por um profissional de saúde.
+    </p>
+  </section>
+
+  <section class="entrada-forma">
+    <form method="post" novalidate>
+      {% csrf_token %}
+      <h2>Entrar</h2>
+      <p class="sub">Use as credenciais que a coordenação lhe atribuiu.</p>
+
+      <div class="campo">
+        <label for="username">Nome de utilizador</label>
+        <input type="text" id="username" name="username" autocomplete="username"
+               autocapitalize="none" spellcheck="false" required autofocus>
+      </div>
+
+      <div class="campo">
+        <label for="password">Senha</label>
+        <input type="password" id="password" name="password" autocomplete="current-password" required>
+        {% if erro %}<p class="erro">{{ erro }}</p>{% endif %}
+      </div>
+
+      <div class="accoes-formulario">
+        <button class="botao" type="submit">Entrar</button>
+        <a href="/">Voltar à aplicação</a>
+      </div>
+    </form>
+  </section>
+
+</div>
+</body>
+</html>

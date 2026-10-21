@@ -34,6 +34,7 @@ INSTALLED_APPS = [
     "apps.acompanhamento",
     "apps.assistente",
     "apps.painel",
+    "apps.gestao",
 ]
 
 MIDDLEWARE = [
@@ -61,6 +62,7 @@ TEMPLATES = [
                 "django.contrib.auth.context_processors.auth",
                 "django.contrib.messages.context_processors.messages",
                 "apps.core.context_processors.idioma",
+                "apps.gestao.context_processors.painel",
             ],
         },
     },
@@ -136,6 +138,9 @@ EXIGIR_VALIDACAO_CLINICA = os.environ.get("EXIGIR_VALIDACAO_CLINICA", "1") == "1
 VERSAO_CONSENTIMENTO = "2026-10-v1"
 # Camada LLM opcional, desligada por defeito: o assistente é de recuperação.
 LLM_ACTIVO = os.environ.get("LLM_ACTIVO", "0") == "1"
+
+LOGIN_URL = "/gestao/entrar/"
+LOGIN_REDIRECT_URL = "/gestao/"
 
 LOGGING = {
     "version": 1,

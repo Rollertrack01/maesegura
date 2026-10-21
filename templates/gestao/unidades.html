@@ -1,0 +1,45 @@
+{% extends "gestao/base.html" %}
+{% load gestao_extras %}
+{% block titulo %}Unidades sanitárias{% endblock %}
+
+{% block conteudo %}
+<header>
+  <h1>Unidades sanitárias</h1>
+  <p class="sub">Só as unidades com contacto confirmado aparecem às utilizadoras. Nunca publicamos um número que ninguém atendeu.</p>
+</header>
+
+<div class="filtros">
+  <a class="botao botao-pequeno" href="{% url 'gestao:unidade-nova' %}">{% icone "mais" 18 %}Acrescentar unidade</a>
+</div>
+
+{% if itens %}
+<div class="envolve-tabela">
+<table class="tabela">
+  <thead><tr><th>Nome</th><th>Distrito</th><th>Telefone</th><th>Estado</th><th class="accoes">Acções</th></tr></thead>
+  <tbody>
+    {% for u in itens %}
+    <tr>
+      <td class="principal" data-rotulo="Nome"><a href="{% url 'gestao:unidade-editar' u.pk %}">{{ u.nome }}</a></td>
+      <td data-rotulo="Distrito">{{ u.distrito }}</td>
+      <td data-rotulo="Telefone">{{ u.telefone|default:"—" }}</td>
+      <td data-rotulo="Estado">
+        {% if u.confirmada %}<span class="selo selo-ok">Confirmada</span>
+        {% else %}<span class="selo selo-espera">Por confirmar</span>{% endif %}
+      </td>
+      <td class="accoes" data-rotulo="Acções">
+        <a class="botao botao-linha botao-pequeno" href="{% url 'gestao:unidade-editar' u.pk %}">Editar</a>
+      </td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+</div>
+{% else %}
+<div class="estado-vazio">
+  {% icone "hospital" 40 %}
+  <h3>Ainda não há unidades sanitárias</h3>
+  <p>Registe a unidade do piloto. É para lá que a aplicação encaminha uma mulher com sinal de perigo, e é o telefone dela que aparece no ecrã.</p>
+  <a class="botao" href="{% url 'gestao:unidade-nova' %}">{% icone "mais" 18 %}Registar a primeira unidade</a>
+</div>
+{% endif %}
+{% endblock %}

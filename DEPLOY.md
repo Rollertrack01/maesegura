@@ -2,6 +2,10 @@
 
 Destino: `maesegura.wooneya.co.mz`, na VPS partilhada `srv1831052`.
 
+Dois endereços de administração, de propósito: `/gestao/` é o painel próprio,
+onde a equipa clínica e a coordenação trabalham; `/sistema/` é o Django admin,
+só para manutenção técnica do superuser.
+
 Regras da casa que este documento respeita:
 
 - Há **um único Caddy** na VPS, em `/opt/wooneya-backend`. Este projecto não
@@ -81,19 +85,31 @@ Se o `caddy validate` falhar, **nada foi aplicado** e o backup está em
 
 ```bash
 cd /opt/maesegura && \
+docker compose -f docker-compose.vps.yml exec maesegura-web python manage.py criar_perfis && \
 docker compose -f docker-compose.vps.yml exec maesegura-web python manage.py carregar_conhecimento && \
 docker compose -f docker-compose.vps.yml exec maesegura-web python manage.py createsuperuser
 ```
+
+O `criar_perfis` cria os dois perfis do painel: **Clínico** e **Gestor**. O
+`createsuperuser` cria a conta técnica, que é a única com acesso ao Django admin
+em `/sistema/` e à secção **Equipa e perfis**, onde se criam as contas das
+restantes pessoas.
 
 O conteúdo entra **por validar**. Isso é propositado: até um profissional de
 saúde validar em `https://maesegura.wooneya.co.mz/gestao/`, o assistente responde
 sempre a encaminhar para a unidade sanitária.
 
-## 5 — Validação clínica
+## 5 — Contas e validação clínica
 
-O profissional de saúde entra em `/gestao/`, abre **Conteúdos clínicos**,
-revê cada texto e usa a acção **"Marcar como validado por mim, agora"**. O nome
-dele fica registado em cada resposta e aparece à utilizadora.
+Entre em `https://maesegura.wooneya.co.mz/gestao/` com a conta técnica e abra
+**Equipa e perfis**. Crie uma conta de perfil **Clínico** para o profissional de
+saúde e uma de perfil **Gestor** para a coordenação. Preencha o nome completo:
+é esse nome que fica gravado em cada resposta validada e é mostrado à grávida.
+
+O profissional de saúde entra com a sua conta, abre **Conteúdos**, filtra por
+**Por validar**, revê cada texto contra as normas do MISAU e carrega em
+**Validar**. O gestor não vê esse botão: coordenar e assinar são funções
+diferentes, e só quem tem competência clínica assina.
 
 A partir desse momento o painel público mostra o número de conteúdos validados,
 que é exactamente o indicador que a candidatura deve apresentar.
@@ -145,3 +161,31 @@ O código está no GitHub e o único estado é a base de dados. Reconstrução:
 repetir o passo 2 com o `.env` guardado, restaurar o dump mais recente com
 `gunzip -c <ficheiro> | docker compose -f docker-compose.vps.yml exec -T maesegura-db psql -U maesegura maesegura`,
 e repetir o passo 3.
+
+---
+
+## Nota sobre redes Docker nesta VPS
+
+A `srv1831052` esgotou as reservas de endereços que o Docker usa para criar
+redes automaticamente: as quinze sub-redes /16 de `172.17`–`172.31` e as
+dezasseis /20 de `192.168.x` estão todas atribuídas. Um `docker compose up` de
+um projecto novo falha com:
+
+```
+failed to create network <projecto>_interna: Error response from daemon:
+all predefined address pools have been fully subnetted
+```
+
+Por isso o `docker-compose.vps.yml` deste projecto **declara a sua subrede**
+(`192.168.240.0/24`), em vez de a pedir ao Docker. Antes de instalar outro
+projecto na mesma VPS, confirmar que a subrede escolhida não colide:
+
+```bash
+docker network inspect $(docker network ls -q) \
+  --format '{{.Name}}  {{range .IPAM.Config}}{{.Subnet}}{{end}}  (contentores: {{len .Containers}})' | sort
+```
+
+Paliativo imediato: `docker network prune -f` liberta as redes sem contentores
+ligados. Correcção de fundo, para uma janela de manutenção e **não** a meio de
+uma instalação (reinicia todos os contentores da VPS): alargar as reservas em
+`/etc/docker/daemon.json` com `default-address-pools` e reiniciar o Docker.

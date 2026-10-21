@@ -1,0 +1,156 @@
+{% load static gestao_extras %}<!doctype html>
+<html lang="pt">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#0f5c4a">
+<meta name="robots" content="noindex, nofollow">
+<title>{% block titulo %}Painel{% endblock %} — MãeSegura</title>
+<link rel="icon" href="{% static 'icones/icone.svg' %}" type="image/svg+xml">
+<link rel="stylesheet" href="{% static 'css/gestao.css' %}">
+</head>
+<body>
+
+<header class="topo">
+  <button class="abrir-menu" type="button" id="abrir-menu" aria-label="Abrir menu" aria-expanded="false" aria-controls="menu-lateral">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true">
+      <path d="M3 6h18M3 12h18M3 18h18"/>
+    </svg>
+  </button>
+
+  <a class="marca" href="{% url 'gestao:painel' %}">
+    <img src="{% static 'icones/icone.svg' %}" alt="">
+    <span class="texto">
+      <strong>MãeSegura</strong>
+      <span>Painel de gestão</span>
+    </span>
+  </a>
+
+  <div class="utilizador">
+    <span class="perfil">{{ request.user.get_full_name|default:request.user.username }} · {% perfis_do request.user %}</span>
+    <a class="sair" href="{% url 'gestao:sair' %}">Sair</a>
+  </div>
+</header>
+
+<div class="veu" id="veu" hidden></div>
+
+<div class="corpo">
+  <nav class="lateral" id="menu-lateral" aria-label="Secções do painel">
+    <button class="fechar-menu" type="button" id="fechar-menu">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true" width="20" height="20">
+        <path d="M18 6 6 18M6 6l12 12"/>
+      </svg>
+      Fechar menu
+    </button>
+
+    <div class="grupo">
+      <span class="titulo">Visão geral</span>
+      <a href="{% url 'gestao:painel' %}" class="{% activo request 'gestao:painel' %}">
+        {% icone "painel" %}<span class="rotulo">Painel principal</span>
+      </a>
+    </div>
+
+    {% if perfil_clinico or perfil_gestor %}
+    <div class="grupo">
+      <span class="titulo">Conteúdo clínico</span>
+      <a href="{% url 'gestao:conteudos' %}" class="{% activo request 'gestao:conteudos' %}">
+        {% icone "conteudo" %}<span class="rotulo">Conteúdos</span>
+        {% if por_validar_menu %}<span class="conta" title="à espera de validação">{{ por_validar_menu }}</span>{% endif %}
+      </a>
+    </div>
+    {% endif %}
+
+    {% if perfil_gestor %}
+    <div class="grupo">
+      <span class="titulo">Acompanhamento</span>
+      <a href="{% url 'gestao:consultas' %}" class="{% activo request 'gestao:consultas' %}">
+        {% icone "calendario" %}<span class="rotulo">Consultas</span>
+      </a>
+      <a href="{% url 'gestao:gestantes' %}" class="{% activo request 'gestao:gestantes' %}">
+        {% icone "pessoas" %}<span class="rotulo">Gestantes</span>
+      </a>
+    </div>
+    <div class="grupo">
+      <span class="titulo">Organização</span>
+      <a href="{% url 'gestao:unidades' %}" class="{% activo request 'gestao:unidades' %}">
+        {% icone "hospital" %}<span class="rotulo">Unidades sanitárias</span>
+      </a>
+      <a href="{% url 'gestao:exportar-indicadores' %}">
+        {% icone "descarregar" %}<span class="rotulo">Exportar indicadores</span>
+      </a>
+    </div>
+    {% endif %}
+
+    {% if perfil_superuser %}
+    <div class="grupo">
+      <span class="titulo">Sistema</span>
+      <a href="{% url 'gestao:equipa' %}" class="{% activo request 'gestao:equipa' %}">
+        {% icone "equipa" %}<span class="rotulo">Equipa e perfis</span>
+      </a>
+      <a href="/sistema/">{% icone "chave" %}<span class="rotulo">Administração técnica</span></a>
+    </div>
+    {% endif %}
+
+    <div class="grupo">
+      <span class="titulo">Público</span>
+      <a href="/painel/" target="_blank" rel="noopener">
+        {% icone "grafico" %}<span class="rotulo">Painel público</span>{% icone "externo" %}
+      </a>
+      <a href="/" target="_blank" rel="noopener">
+        {% icone "telemovel" %}<span class="rotulo">Ver a aplicação</span>{% icone "externo" %}
+      </a>
+    </div>
+  </nav>
+
+  <main class="folha">
+    {% if messages %}
+    <ul class="mensagens">
+      {% for m in messages %}<li class="{{ m.tags }}">{{ m }}</li>{% endfor %}
+    </ul>
+    {% endif %}
+    {% block conteudo %}{% endblock %}
+  </main>
+</div>
+
+<script>
+(function () {
+  "use strict";
+  var menu = document.getElementById("menu-lateral");
+  var veu = document.getElementById("veu");
+  var abrir = document.getElementById("abrir-menu");
+  var fechar = document.getElementById("fechar-menu");
+  if (!menu || !abrir) return;
+
+  function definir(aberto) {
+    menu.classList.toggle("aberta", aberto);
+    veu.hidden = false;
+    veu.classList.toggle("visivel", aberto);
+    abrir.setAttribute("aria-expanded", aberto ? "true" : "false");
+    document.body.style.overflow = aberto && window.innerWidth < 1024 ? "hidden" : "";
+    if (aberto) { (menu.querySelector("a") || menu).focus(); }
+  }
+
+  abrir.addEventListener("click", function () { definir(!menu.classList.contains("aberta")); });
+  if (fechar) fechar.addEventListener("click", function () { definir(false); abrir.focus(); });
+  veu.addEventListener("click", function () { definir(false); });
+  document.addEventListener("keydown", function (e) {
+    if (e.key === "Escape" && menu.classList.contains("aberta")) { definir(false); abrir.focus(); }
+  });
+  // navegar fecha a gaveta
+  menu.addEventListener("click", function (e) {
+    if (e.target.closest("a") && window.innerWidth < 1024) definir(false);
+  });
+  window.addEventListener("resize", function () {
+    if (window.innerWidth >= 1024) definir(false);
+  });
+
+  // confirmação em acções que retiram conteúdo do ar
+  document.querySelectorAll("[data-confirmar]").forEach(function (f) {
+    f.addEventListener("submit", function (e) {
+      if (!window.confirm(f.dataset.confirmar)) e.preventDefault();
+    });
+  });
+})();
+</script>
+</body>
+</html>

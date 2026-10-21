@@ -1,0 +1,50 @@
+{% extends "gestao/base.html" %}
+{% load gestao_extras %}
+{% block titulo %}Gestantes{% endblock %}
+
+{% block conteudo %}
+<header>
+  <h1>Mulheres em acompanhamento</h1>
+  <p class="sub">Registo anónimo por desenho: não existe nome, apelido nem documento. O telefone é opcional e serve apenas para lembretes.</p>
+</header>
+
+<div class="filtros">
+  <form method="get" role="search">
+    <input type="search" name="distrito" value="{{ distrito }}" placeholder="Filtrar por distrito" aria-label="Filtrar por distrito">
+    <button class="botao botao-linha botao-pequeno" type="submit">Filtrar</button>
+  </form>
+</div>
+
+{% if lista %}
+<div class="envolve-tabela">
+<table class="tabela">
+  <thead>
+    <tr><th>Código</th><th>Semana actual</th><th>Próxima consulta</th><th>Parto previsto</th><th>Distrito</th><th>Idioma</th></tr>
+  </thead>
+  <tbody>
+    {% for l in lista %}
+    <tr>
+      <td class="principal codigo" data-rotulo="Código">{{ l.obj.codigo }}</td>
+      <td data-rotulo="Semana actual">{{ l.semana }}ª</td>
+      <td data-rotulo="Próxima consulta">{% if l.proximo %}{{ l.proximo.data_prevista|date:"j M Y" }}{% else %}—{% endif %}</td>
+      <td data-rotulo="Parto previsto">{{ l.obj.data_prevista_parto|date:"j M Y" }}</td>
+      <td data-rotulo="Distrito">{{ l.obj.distrito|default:"—" }}</td>
+      <td data-rotulo="Idioma">{{ l.obj.get_idioma_display }}</td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+</div>
+{% else %}
+<div class="estado-vazio">
+  {% icone "pessoas" 40 %}
+  <h3>{% if distrito %}Nenhuma mulher registada em «{{ distrito }}»{% else %}Ainda não há mulheres em acompanhamento{% endif %}</h3>
+  <p>
+    {% if distrito %}Experimente outro distrito, ou veja a lista completa.
+    {% else %}O registo é feito pela própria mulher, na aplicação. Abra-a no telemóvel para fazer um registo de teste.{% endif %}
+  </p>
+  {% if distrito %}<a class="botao botao-linha" href="{% url 'gestao:gestantes' %}">Ver todas</a>
+  {% else %}<a class="botao botao-linha" href="/" target="_blank" rel="noopener">Abrir a aplicação</a>{% endif %}
+</div>
+{% endif %}
+{% endblock %}
