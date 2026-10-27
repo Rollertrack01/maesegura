@@ -1,5 +1,7 @@
 from django.contrib.auth.models import Group, User
 from django.test import TestCase
+
+from apps.core.testes import ClienteComCarimbo
 from django.utils import timezone
 
 from apps.acompanhamento.models import Contacto, UnidadeSanitaria
@@ -37,6 +39,7 @@ def criar_conteudo(**extra):
 
 
 class AcessoTest(TestCase):
+    client_class = ClienteComCarimbo
     def test_painel_exige_autenticacao(self):
         resposta = self.client.get("/gestao/")
         self.assertEqual(resposta.status_code, 302)
@@ -68,6 +71,7 @@ class AcessoTest(TestCase):
 
 class SeparacaoDePoderesTest(TestCase):
     """O gestor coordena; só o clínico assina. É isto que torna a regra defensável."""
+    client_class = ClienteComCarimbo
 
     def setUp(self):
         self.conteudo = criar_conteudo()
@@ -130,6 +134,7 @@ class SeparacaoDePoderesTest(TestCase):
 
 
 class TrabalhoDoGestorTest(TestCase):
+    client_class = ClienteComCarimbo
     def setUp(self):
         self.gestor = criar_utilizador("gestora", GESTOR)
         self.client.force_login(self.gestor)
@@ -170,6 +175,7 @@ class TrabalhoDoGestorTest(TestCase):
 
 
 class CriarPerfisTest(TestCase):
+    client_class = ClienteComCarimbo
     def test_comando_e_idempotente(self):
         from django.core.management import call_command
 

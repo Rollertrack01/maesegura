@@ -1,5 +1,5 @@
 {% extends "base.html" %}
-{% load idioma %}
+{% load idioma antirobo %}
 {% block titulo %}{% t "assistente.titulo" %} — {% t "app.nome" %}{% endblock %}
 
 {% block conteudo %}
@@ -8,8 +8,11 @@
 
 <p class="sem-rede" id="aviso-sem-rede" hidden>{% t "assistente.offline" %}</p>
 
+{% if aviso_antirobo %}<p class="sem-rede">{{ aviso_antirobo }}</p>{% endif %}
+
 <form method="post" id="formulario-pergunta" novalidate>
   {% csrf_token %}
+  {% antirobo "assistente" carimbo_verificado %}
   <div class="campo">
     <label for="pergunta">{% t "assistente.campo" %}</label>
     <textarea id="pergunta" name="pergunta" maxlength="300" required>{{ pergunta }}</textarea>

@@ -87,6 +87,10 @@
       <a href="{% url 'gestao:equipa' %}" class="{% activo request 'gestao:equipa' %}">
         {% icone "equipa" %}<span class="rotulo">Equipa e perfis</span>
       </a>
+      <a href="{% url 'gestao:seguranca' %}" class="{% activo request 'gestao:seguranca' %}">
+        {% icone "escudo" %}<span class="rotulo">Segurança</span>
+        {% if bloqueadas_menu %}<span class="conta" title="bloqueadas em 30 dias">{{ bloqueadas_menu }}</span>{% endif %}
+      </a>
       <a href="/sistema/">{% icone "chave" %}<span class="rotulo">Administração técnica</span></a>
     </div>
     {% endif %}

@@ -4,6 +4,7 @@ from django.shortcuts import redirect, render
 from django.utils import timezone
 from django.views.decorators.http import require_http_methods
 
+from apps.core.antirobo import verificar
 from apps.core.i18n import CODIGOS, traduzir
 
 from .models import Contacto, EventoUso, Gestante, UnidadeSanitaria
@@ -21,6 +22,20 @@ def registo(request):
     idioma = request.idioma
     erros = {}
     if request.method == "POST":
+        veredicto = verificar(request, "registo")
+        if not veredicto.ok:
+            if veredicto.silencioso:
+                # Armadilha: respondemos como se tivesse corrido bem e não
+                # gravamos nada, para o robô não aprender o que o travou.
+                return redirect("acompanhamento:registo")
+            erros["geral"] = veredicto.mensagem
+            return render(
+                request,
+                "acompanhamento/registo.html",
+                {"erros": erros, "unidades": _unidades(), "valores": request.POST,
+                 "carimbo_verificado": True},
+            )
+
         semana_bruta = (request.POST.get("semana") or "").strip()
         consentimento = request.POST.get("consentimento") == "sim"
         try:
@@ -55,7 +70,8 @@ def registo(request):
     return render(
         request,
         "acompanhamento/registo.html",
-        {"erros": erros, "unidades": _unidades(), "valores": request.POST},
+        {"erros": erros, "unidades": _unidades(), "valores": request.POST,
+         "carimbo_verificado": bool(erros)},
     )
 
 
@@ -70,6 +86,12 @@ def _gestante_da_sessao(request):
 def entrar(request):
     erro = None
     if request.method == "POST":
+        veredicto = verificar(request, "codigo")
+        if not veredicto.ok:
+            if veredicto.silencioso:
+                return redirect("acompanhamento:entrar")
+            return render(request, "acompanhamento/entrar.html",
+                          {"erro": veredicto.mensagem, "carimbo_verificado": True})
         codigo = (request.POST.get("codigo") or "").strip().upper()
         gestante = Gestante.objects.filter(codigo=codigo, activa=True).first()
         if gestante:
@@ -77,7 +99,8 @@ def entrar(request):
             request.session["idioma"] = gestante.idioma
             return redirect("acompanhamento:inicio")
         erro = traduzir("entrar.erro", request.idioma)
-    return render(request, "acompanhamento/entrar.html", {"erro": erro})
+    return render(request, "acompanhamento/entrar.html",
+                  {"erro": erro, "carimbo_verificado": bool(erro)})
 
 
 def inicio(request):

@@ -19,5 +19,6 @@ urlpatterns = [
     path("unidades/nova/", views.unidade_editar, name="unidade-nova"),
     path("unidades/<int:pk>/", views.unidade_editar, name="unidade-editar"),
     path("equipa/", views.equipa, name="equipa"),
+    path("seguranca/", views.seguranca, name="seguranca"),
     path("exportar/indicadores.csv", views.exportar_metricas, name="exportar-indicadores"),
 ]

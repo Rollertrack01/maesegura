@@ -32,6 +32,8 @@ ICONES = {
                '<path d="M18 14v5a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V7a1 1 0 0 1 1-1h5"/>',
     "mais": '<path d="M12 5v14M5 12h14"/>',
     "voltar": '<path d="M15 6 9 12l6 6"/>',
+    "escudo": '<path d="M12 3 4.5 6v6c0 4.2 3 7.6 7.5 9 4.5-1.4 7.5-4.8 7.5-9V6L12 3Z"/>'
+              '<path d="m9 12 2 2 4-4"/>',
     "vazio": '<circle cx="12" cy="12" r="9"/><path d="M12 8v4"/><path d="M12 16h.01"/>',
     "feito": '<circle cx="12" cy="12" r="9"/><path d="m8.5 12.5 2.5 2.5 4.5-5"/>',
 }

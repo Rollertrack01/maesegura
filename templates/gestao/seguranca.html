@@ -1,0 +1,102 @@
+{% extends "gestao/base.html" %}
+{% load gestao_extras %}
+{% block titulo %}Segurança{% endblock %}
+
+{% block conteudo %}
+<header>
+  <h1>Segurança</h1>
+  <p class="sub">O que a protecção anti-robô travou nos últimos {{ r.dias }} dias. Não é o registo de auditoria.</p>
+</header>
+
+{% if not turnstile_ligado %}
+<div class="aviso">
+  <strong>Cloudflare Turnstile por ligar.</strong>
+  As outras quatro camadas estão activas. O Turnstile é gratuito e acrescenta um
+  desafio nos formulários mais expostos — os passos estão no DEPLOY.md.
+</div>
+{% endif %}
+
+<div class="indicadores">
+  <div class="indicador{% if r.bloqueadas %} alerta{% endif %}">
+    <span class="numero">{{ r.bloqueadas }}</span>
+    <span class="nome">Envios bloqueados</span>
+  </div>
+  <div class="indicador">
+    <span class="numero">{{ r.total }}</span>
+    <span class="nome">Tentativas registadas</span>
+  </div>
+  <div class="indicador{% if r.senhas_erradas %} alerta{% endif %}">
+    <span class="numero">{{ r.senhas_erradas }}</span>
+    <span class="nome">Senhas erradas</span>
+  </div>
+</div>
+
+<div class="cartao">
+  <h2>Porquê foram bloqueados</h2>
+  {% if r.por_motivo %}
+  <ul class="atencao-lista">
+    {% for m in r.por_motivo %}
+    <li><a href="?so_bloqueadas=1"><span class="ponto"></span>{{ m.nome }} — {{ m.total }}</a></li>
+    {% endfor %}
+  </ul>
+  {% else %}
+  <p class="vazio">Nada foi bloqueado neste período.</p>
+  {% endif %}
+</div>
+
+{% if r.ips %}
+<div class="cartao">
+  <h2>Endereços com mais bloqueios</h2>
+  <ul class="atencao-lista">
+    {% for i in r.ips %}
+    <li><a href="?so_bloqueadas=1"><span class="ponto"></span><span class="codigo">{{ i.ip }}</span>&nbsp;— {{ i.total }}</a></li>
+    {% endfor %}
+  </ul>
+</div>
+{% endif %}
+
+<h2 class="seccao-titulo">Registo de tentativas</h2>
+
+<div class="filtros">
+  <div class="pilulas">
+    <a href="?" class="pilula {% if not formulario and not so_bloqueadas %}activo{% endif %}">Todas</a>
+    <a href="?so_bloqueadas=1" class="pilula {% if so_bloqueadas and not formulario %}activo{% endif %}">Só bloqueadas</a>
+    <a href="?formulario=registo" class="pilula {% if formulario == 'registo' %}activo{% endif %}">Registo</a>
+    <a href="?formulario=assistente" class="pilula {% if formulario == 'assistente' %}activo{% endif %}">Assistente</a>
+    <a href="?formulario=codigo" class="pilula {% if formulario == 'codigo' %}activo{% endif %}">Entrada por código</a>
+    <a href="?formulario=login" class="pilula {% if formulario == 'login' %}activo{% endif %}">Login do painel</a>
+  </div>
+</div>
+
+{% if registo %}
+<div class="envolve-tabela">
+<table class="tabela">
+  <thead>
+    <tr><th>Momento</th><th>Formulário</th><th>Endereço</th><th>Resultado</th><th>Conta tentada</th></tr>
+  </thead>
+  <tbody>
+    {% for t in registo %}
+    <tr>
+      <td class="principal" data-rotulo="Momento">{{ t.criado_em|date:"j M Y, H:i" }}</td>
+      <td data-rotulo="Formulário">{{ t.formulario }}</td>
+      <td class="codigo" data-rotulo="Endereço">{{ t.ip }}</td>
+      <td data-rotulo="Resultado">
+        {% if t.resultado == "ACEITE" %}<span class="selo selo-ok">Aceite</span>
+        {% elif t.resultado == "FALHOU" %}<span class="selo selo-espera">Senha errada</span>
+        {% else %}<span class="selo selo-urgente">{{ t.get_resultado_display }}</span>{% endif %}
+      </td>
+      <td data-rotulo="Conta tentada">{{ t.utilizador_tentado|default:"—" }}</td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+</div>
+{% else %}
+<div class="estado-vazio">
+  {% icone "escudo" 40 %}
+  <h3>Sem tentativas registadas com este filtro</h3>
+  <p>As tentativas aparecem aqui assim que alguém usar os formulários públicos.</p>
+  {% if formulario or so_bloqueadas %}<a class="botao botao-linha" href="{% url 'gestao:seguranca' %}">Ver todas</a>{% endif %}
+</div>
+{% endif %}
+{% endblock %}

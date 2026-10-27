@@ -1,7 +1,12 @@
 # Bloco a acrescentar ao Caddyfile de /opt/wooneya-backend.
 # Colocar junto dos restantes blocos, nunca num Caddy novo.
+#
+# Domínio oficial: maesegura.energisa.co.mz — a Energisa é a empresa candidata
+# à chamada do UNICEF, e o protótipo tem de viver no domínio dela.
+# O antigo maesegura.wooneya.co.mz fica só a reencaminhar, para que qualquer
+# ligação já partilhada continue a funcionar.
 
-maesegura.wooneya.co.mz {
+maesegura.energisa.co.mz {
 	encode zstd gzip
 	reverse_proxy maesegura-web:8000
 	header {
@@ -13,4 +18,8 @@ maesegura.wooneya.co.mz {
 	log {
 		output file /var/log/caddy/maesegura.log
 	}
+}
+
+maesegura.wooneya.co.mz {
+	redir https://maesegura.energisa.co.mz{uri} permanent
 }

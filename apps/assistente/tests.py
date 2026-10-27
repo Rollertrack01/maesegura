@@ -3,6 +3,8 @@ from django.core.management import call_command
 from django.test import TestCase, override_settings
 from django.utils import timezone
 
+from apps.core.testes import ClienteComCarimbo
+
 from apps.acompanhamento.models import EventoUso
 
 from .busca import fichar, procurar
@@ -26,6 +28,7 @@ def criar_conhecimento(**extra):
 
 
 class BuscaTest(TestCase):
+    client_class = ClienteComCarimbo
     def test_fichar_remove_acentos_e_palavras_vazias(self):
         self.assertEqual(fichar("Tenho uma dor de cabeça"), {"dor", "cabeca"})
 
@@ -80,6 +83,7 @@ class BuscaTest(TestCase):
 
 
 class ValidacaoClinicaTest(TestCase):
+    client_class = ClienteComCarimbo
     def test_conteudo_por_validar_nao_e_publicavel(self):
         criar_conhecimento(validado_por="", validado_em=None)
         self.assertEqual(Conhecimento.objects.count(), 1)
@@ -107,6 +111,7 @@ class ValidacaoClinicaTest(TestCase):
 
 
 class AssistenteWebTest(TestCase):
+    client_class = ClienteComCarimbo
     def test_pergunta_sem_resposta_validada_nao_inventa(self):
         criar_conhecimento(validado_por="", validado_em=None)
         resposta = self.client.post("/assistente/", {"pergunta": "estou a sangrar"})
@@ -137,6 +142,7 @@ class AssistenteWebTest(TestCase):
 
 
 class CarregadorTest(TestCase):
+    client_class = ClienteComCarimbo
     def test_carrega_sem_validar_por_defeito(self):
         call_command("carregar_conhecimento", verbosity=0)
         self.assertGreater(Conhecimento.objects.count(), 0)

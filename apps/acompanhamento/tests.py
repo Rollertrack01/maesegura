@@ -1,6 +1,8 @@
 from datetime import date, timedelta
 
 from django.test import TestCase
+
+from apps.core.testes import ClienteComCarimbo
 from django.utils import timezone
 
 from .models import Contacto, EventoUso, Gestante
@@ -8,6 +10,7 @@ from .servicos import gerar_calendario, registar_gestante
 
 
 class CalculoDaGravidezTest(TestCase):
+    client_class = ClienteComCarimbo
     def test_dpp_sao_quarenta_semanas_completas(self):
         registo = date(2026, 10, 21)
         self.assertEqual(
@@ -33,6 +36,7 @@ class CalculoDaGravidezTest(TestCase):
 
 
 class CalendarioOMSTest(TestCase):
+    client_class = ClienteComCarimbo
     def test_oito_contactos_para_quem_se_regista_cedo(self):
         gestante = registar_gestante(semana=8)
         semanas = list(gestante.contactos.values_list("semana_alvo", flat=True))
@@ -66,6 +70,7 @@ class CalendarioOMSTest(TestCase):
 
 
 class PrivacidadeTest(TestCase):
+    client_class = ClienteComCarimbo
     def test_modelo_nao_tem_campo_de_nome(self):
         campos = {c.name for c in Gestante._meta.get_fields()}
         for proibido in ("nome", "apelido", "nome_completo", "bi", "documento"):
@@ -83,6 +88,7 @@ class PrivacidadeTest(TestCase):
 
 
 class FluxoWebTest(TestCase):
+    client_class = ClienteComCarimbo
     def test_registo_exige_consentimento(self):
         resposta = self.client.post("/", {"semana": "20"})
         self.assertEqual(resposta.status_code, 200)

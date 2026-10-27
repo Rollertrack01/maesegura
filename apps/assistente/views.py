@@ -1,9 +1,10 @@
 from django.http import JsonResponse
-from django.shortcuts import render
+from django.shortcuts import redirect, render
 from django.views.decorators.http import require_GET, require_http_methods
 
 from apps.acompanhamento.models import EventoUso, Gestante
 from apps.acompanhamento.views import CHAVE_SESSAO_GESTANTE
+from apps.core.antirobo import verificar
 
 from .busca import procurar
 from .models import Conhecimento
@@ -30,7 +31,20 @@ def assistente(request):
     resultados = []
     respondeu = None
 
-    if request.method == "POST":
+    aviso_antirobo = ""
+    processar = request.method == "POST"
+    if processar:
+        veredicto = verificar(request, "assistente")
+        if not veredicto.ok:
+            if veredicto.silencioso:
+                return redirect("assistente:assistente")
+            # Recusado: devolvemos o ecrã com a pergunta escrita e um aviso
+            # calmo, sem a processar.
+            aviso_antirobo = veredicto.mensagem
+            pergunta = (request.POST.get("pergunta") or "").strip()[:300]
+            processar = False
+
+    if processar:
         pergunta = (request.POST.get("pergunta") or "").strip()[:300]
         conhecimentos = _base_de_conhecimento()
         itens = [(c, c.para_json()) for c in conhecimentos]
@@ -58,6 +72,8 @@ def assistente(request):
             "respondeu": respondeu,
             "destaques": destaques,
             "unidade": unidade,
+            "aviso_antirobo": aviso_antirobo,
+            "carimbo_verificado": bool(aviso_antirobo),
             "URGENTE": Conhecimento.URGENTE,
             "ATENCAO": Conhecimento.ATENCAO,
         },

@@ -25,6 +25,9 @@ dados, interface e base de conhecimento.
 5. **Painel público de métricas** em `/painel/` e `/api/metricas.json`, com
    dados agregados e anónimos.
 6. **Painel de gestão próprio** em `/gestao/`, com três perfis separados.
+7. **Protecção anti-robô** nos quatro pontos de entrada públicos: campo-armadilha,
+   carimbo de tempo assinado, limite por endereço IP, bloqueio de senhas e
+   Cloudflare Turnstile opcional.
 
 ## Duas decisões que explicam o resto do código
 
@@ -91,10 +94,11 @@ infra-estrutura. Com Docker: `docker compose up --build`.
 python manage.py test
 ```
 
-62 testes. Cobrem o cálculo da data prevista do parto, o calendário da OMS, a
+89 testes. Cobrem o cálculo da data prevista do parto, o calendário da OMS, a
 regra de validação clínica, a precisão do motor de busca (incluindo perguntas
 fora do domínio, que não devem devolver nada), a separação de perfis no painel
-de gestão e a ausência de dados pessoais no painel público e nas listagens.
+de gestão, as cinco camadas da protecção anti-robô e a ausência de dados
+pessoais no painel público, nas listagens e no registo de tentativas.
 
 ## Dados e privacidade
 
@@ -119,6 +123,7 @@ apps/acompanhamento/ Gestante, consultas, calendário da OMS, telemetria
 apps/assistente/     Conteúdo clínico, validação, motor de busca
 apps/painel/         Métricas públicas (HTML e JSON)
 apps/gestao/         Painel de gestão próprio, perfis e validação clínica
+apps/core/antirobo.py  Protecção anti-robô dos formulários públicos
 static/js/app.js     Espelho do motor de busca, para funcionar offline
 deploy/              Bloco do Caddy para a VPS partilhada
 ```

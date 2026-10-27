@@ -1,5 +1,5 @@
 {% extends "base.html" %}
-{% load idioma %}
+{% load idioma antirobo %}
 {% block titulo %}{% t "entrar.titulo" %} — {% t "app.nome" %}{% endblock %}
 
 {% block conteudo %}
@@ -8,6 +8,7 @@
 
 <form method="post" novalidate>
   {% csrf_token %}
+  {% antirobo "codigo" carimbo_verificado %}
   <div class="campo">
     <label for="codigo">{% t "entrar.codigo" %}</label>
     <input type="text" id="codigo" name="codigo" maxlength="12" autocapitalize="characters"

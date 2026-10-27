@@ -9,6 +9,8 @@ from django.views.decorators.http import require_POST
 
 from apps.acompanhamento.models import Contacto, EventoUso, Gestante, UnidadeSanitaria
 from apps.assistente.models import Conhecimento
+from apps.core.antirobo import entrada_bloqueada, registar_senha, verificar
+from apps.core.models import TentativaPublica
 
 from .forms import ConteudoForm, UnidadeForm, UtilizadorForm
 from .perfis import CLINICO, GESTOR, exige_perfil, perfis_de, pode_validar_conteudo
@@ -21,11 +23,28 @@ def entrar(request):
         return redirect("gestao:painel")
     erro = None
     if request.method == "POST":
+        nome = (request.POST.get("username") or "").strip()
+
+        veredicto = verificar(request, "login")
+        if not veredicto.ok:
+            if veredicto.silencioso:
+                return redirect("gestao:entrar")
+            return render(request, "gestao/entrar.html",
+                          {"erro": veredicto.mensagem, "carimbo_verificado": True})
+
+        if entrada_bloqueada(request, nome):
+            # Bloqueia mesmo com a senha certa — é isso que trava a adivinhação.
+            # A mensagem não revela se a conta existe.
+            return render(request, "gestao/entrar.html", {
+                "erro": "Demasiadas tentativas. Aguarde 15 minutos antes de tentar outra vez.",
+                "carimbo_verificado": True,
+            })
+
         utilizador = authenticate(
-            request,
-            username=(request.POST.get("username") or "").strip(),
-            password=request.POST.get("password") or "",
+            request, username=nome, password=request.POST.get("password") or ""
         )
+        registar_senha(request, nome, acertou=utilizador is not None)
+
         if utilizador is None:
             erro = "Nome de utilizador ou senha incorrectos."
         elif not (utilizador.is_superuser or perfis_de(utilizador)):
@@ -33,7 +52,7 @@ def entrar(request):
         else:
             login(request, utilizador)
             return redirect(request.GET.get("proximo") or "gestao:painel")
-    return render(request, "gestao/entrar.html", {"erro": erro})
+    return render(request, "gestao/entrar.html", {"erro": erro, "carimbo_verificado": bool(erro)})
 
 
 def sair(request):
@@ -283,6 +302,34 @@ def equipa(request):
         formulario = UtilizadorForm()
     pessoas = User.objects.prefetch_related("groups").order_by("username")
     return render(request, "gestao/equipa.html", {"formulario": formulario, "pessoas": pessoas})
+
+
+# --- Segurança ---------------------------------------------------------------
+
+@exige_perfil("superuser")
+def seguranca(request):
+    """O que a protecção anti-robô travou. Só a equipa técnica vê."""
+    from django.conf import settings
+
+    motivos = dict(TentativaPublica.RESULTADOS)
+    resumo = TentativaPublica.resumo(dias=30)
+    for linha in resumo["por_motivo"]:
+        linha["nome"] = motivos.get(linha["resultado"], linha["resultado"])
+
+    registo = TentativaPublica.objects.all()
+    formulario = request.GET.get("formulario", "")
+    if formulario:
+        registo = registo.filter(formulario=formulario)
+    if request.GET.get("so_bloqueadas"):
+        registo = registo.exclude(resultado__in=["ACEITE", "FALHOU"])
+
+    return render(request, "gestao/seguranca.html", {
+        "r": resumo,
+        "registo": registo[:150],
+        "formulario": formulario,
+        "so_bloqueadas": bool(request.GET.get("so_bloqueadas")),
+        "turnstile_ligado": bool(settings.TURNSTILE_SITE_KEY and settings.TURNSTILE_SECRET_KEY),
+    })
 
 
 # --- Exportação --------------------------------------------------------------

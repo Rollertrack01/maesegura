@@ -139,6 +139,12 @@ VERSAO_CONSENTIMENTO = "2026-10-v1"
 # Camada LLM opcional, desligada por defeito: o assistente é de recuperação.
 LLM_ACTIVO = os.environ.get("LLM_ACTIVO", "0") == "1"
 
+# --- Protecção anti-robô ----------------------------------------------------
+# Sem estas chaves o Turnstile não aparece; as restantes camadas (armadilha,
+# carimbo, limite por IP, bloqueio de senhas) funcionam sempre.
+TURNSTILE_SITE_KEY = os.environ.get("TURNSTILE_SITE_KEY", "")
+TURNSTILE_SECRET_KEY = os.environ.get("TURNSTILE_SECRET_KEY", "")
+
 LOGIN_URL = "/gestao/entrar/"
 LOGIN_REDIRECT_URL = "/gestao/"
 

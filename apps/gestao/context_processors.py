@@ -15,6 +15,10 @@ def painel(request):
         "perfil_gestor": GESTOR in nomes,
         "perfil_superuser": "superuser" in nomes,
     }
+    if "superuser" in nomes:
+        from apps.core.models import TentativaPublica
+
+        contexto["bloqueadas_menu"] = TentativaPublica.resumo(dias=30)["bloqueadas"]
     if CLINICO in nomes:
         contexto["por_validar_menu"] = Conhecimento.objects.filter(
             Q(validado_em__isnull=True) | Q(validado_por="")
