@@ -510,3 +510,24 @@ textarea { resize: vertical; min-height: 110px; }
   .passos .accao { width: 100%; margin-top: 10px; }
   .passos .accao .botao { width: 100%; }
 }
+
+
+/* --- Data em três listas ---------------------------------------------- */
+/* O calendário nativo do navegador vinha em inglês; estas listas vêm sempre
+   em português, venham de que telemóvel vierem. */
+.campo select[name$="_day"],
+.campo select[name$="_month"],
+.campo select[name$="_year"] {
+  display: inline-block;
+  width: auto;
+  min-width: 92px;
+  margin-right: 8px;
+}
+.campo select[name$="_month"] { min-width: 130px; }
+@media (max-width: 480px) {
+  .campo select[name$="_day"],
+  .campo select[name$="_month"],
+  .campo select[name$="_year"] {
+    width: 100%; margin: 0 0 9px;
+  }
+}

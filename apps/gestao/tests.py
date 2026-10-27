@@ -153,10 +153,19 @@ class TrabalhoDoGestorTest(TestCase):
         self.assertNotIn("840000000", corpo)
         self.assertIn("Rapale", corpo)
 
+    def test_data_em_listas_portuguesas_nao_no_calendario_do_navegador(self):
+        """O calendário nativo segue o idioma do navegador e vinha em inglês."""
+        corpo = self.client.get("/gestao/unidades/nova/").content.decode()
+        self.assertNotIn('type="date"', corpo)
+        self.assertIn("confirmado_em_month", corpo)
+        for mes in ("Janeiro", "Março", "Dezembro"):
+            self.assertIn(mes, corpo)
+
     def test_cria_unidade_sanitaria(self):
         self.client.post("/gestao/unidades/nova/", {
             "nome": "Centro de Saúde de Rapale", "distrito": "Rapale",
-            "tipo": "Centro de saúde", "telefone": "+258 26 000 000", "confirmado_em": "",
+            "tipo": "Centro de saúde", "telefone": "+258 26 000 000",
+            "confirmado_em_day": "", "confirmado_em_month": "", "confirmado_em_year": "",
         })
         self.assertTrue(UnidadeSanitaria.objects.filter(nome__startswith="Centro").exists())
 

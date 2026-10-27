@@ -1,5 +1,7 @@
+
 from django import forms
 from django.contrib.auth.models import Group, User
+from django.utils import timezone
 
 from apps.acompanhamento.models import UnidadeSanitaria
 from apps.assistente.models import Conhecimento
@@ -54,7 +56,15 @@ class UnidadeForm(forms.ModelForm):
     class Meta:
         model = UnidadeSanitaria
         fields = ["nome", "distrito", "tipo", "telefone", "confirmado_em"]
-        widgets = {"confirmado_em": forms.DateInput(attrs={"type": "date"})}
+        # Três listas em vez do campo de data nativo: o calendário que o
+        # navegador desenha segue o idioma DELE, não o do site, e aparecia em
+        # inglês. Assim os meses vêm sempre em português, de qualquer telemóvel.
+        widgets = {
+            "confirmado_em": forms.SelectDateWidget(
+                years=range(timezone.localdate().year - 2, timezone.localdate().year + 2),
+                empty_label=("ano", "mês", "dia"),
+            )
+        }
         labels = {
             "nome": "Nome da unidade",
             "distrito": "Distrito",
