@@ -10,26 +10,17 @@
 
 {% if aviso_antirobo %}<p class="sem-rede">{{ aviso_antirobo }}</p>{% endif %}
 
-<form method="post" id="formulario-pergunta" novalidate>
-  {% csrf_token %}
-  {% antirobo "assistente" carimbo_verificado %}
-  <div class="campo">
-    <label for="pergunta">{% t "assistente.campo" %}</label>
-    <textarea id="pergunta" name="pergunta" maxlength="300" required>{{ pergunta }}</textarea>
-  </div>
-  <button class="botao" type="submit">{% t "assistente.submeter" %}</button>
-</form>
-
 <div id="respostas">
 {% if respondeu is not None %}
   {% if resultados %}
     {% for c, pontos in resultados %}
       {% if c.gravidade == URGENTE and forloop.first %}
-      <div class="chamada-urgente">
+      <div class="chamada-urgente" role="alert">
         <strong>{% t "alerta.urgente" %}</strong>
         <span>{% t "alerta.urgente.texto" %}</span>
         {% if unidade and unidade.telefone %}
-          <p><a href="tel:{{ unidade.telefone }}">{{ unidade.nome }} — {{ unidade.telefone }}</a></p>
+          <a class="telefone" href="tel:{{ unidade.telefone|cut:" " }}">{{ unidade.telefone }}</a>
+          <span class="unidade-nome">{{ unidade.nome }}</span>
         {% endif %}
       </div>
       {% endif %}
@@ -58,6 +49,16 @@
   {% endif %}
 {% endif %}
 </div>
+
+<form method="post" id="formulario-pergunta" novalidate>
+  {% csrf_token %}
+  {% antirobo "assistente" carimbo_verificado %}
+  <div class="campo">
+    <label for="pergunta">{% t "assistente.campo" %}</label>
+    <textarea id="pergunta" name="pergunta" maxlength="300" required>{{ pergunta }}</textarea>
+  </div>
+  <button class="botao" type="submit">{% t "assistente.submeter" %}</button>
+</form>
 
 {% if destaques %}
 <h2>{% t "assistente.exemplos" %}</h2>

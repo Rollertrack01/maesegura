@@ -100,7 +100,9 @@ AUTH_PASSWORD_VALIDATORS = [
 
 LANGUAGE_CODE = "pt"
 TIME_ZONE = "Africa/Maputo"
-USE_I18N = False  # o conteúdo é bilingue em base de dados; ver apps/core/i18n.py
+# Ligado apenas para o Django traduzir datas e meses para português. O conteúdo
+# bilingue da aplicação vive na base de dados e em apps/core/i18n.py.
+USE_I18N = True
 USE_TZ = True
 
 STATIC_URL = "/static/"

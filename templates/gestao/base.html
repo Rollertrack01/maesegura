@@ -10,6 +10,7 @@
 <link rel="stylesheet" href="{% static 'css/gestao.css' %}">
 </head>
 <body>
+<div class="barra-capulana" aria-hidden="true"></div>
 
 <header class="topo">
   <button class="abrir-menu" type="button" id="abrir-menu" aria-label="Abrir menu" aria-expanded="false" aria-controls="menu-lateral">
@@ -27,7 +28,7 @@
   </a>
 
   <div class="utilizador">
-    <span class="perfil">{{ request.user.get_full_name|default:request.user.username }} · {% perfis_do request.user %}</span>
+    <span class="perfil">{{ request.user.get_full_name|default:request.user.username }}<span class="papel">{% perfis_do request.user %}</span></span>
     <a class="sair" href="{% url 'gestao:sair' %}">Sair</a>
   </div>
 </header>

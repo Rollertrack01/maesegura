@@ -112,6 +112,24 @@ def inicio(request):
     contactos = list(gestante.contactos.all())
     for contacto in contactos:
         contacto.atrasado = contacto.em_atraso(hoje)
+
+    # A jornada: onde ela está nas 40 semanas, e as consultas ao longo do caminho.
+    semana = gestante.semana_actual(hoje)
+    proximo = gestante.proximo_contacto(hoje)
+    def posicao(s):
+        """Mapeia a semana 4–40 em 0–100%. Inteiro de propósito: o Django
+        escreve decimais com vírgula em português, e `left: 65,0%` não é CSS."""
+        return max(0, min(100, round((s - 4) / 36 * 100)))
+
+    marcas = [
+        {
+            "semana": c.semana_alvo,
+            "posicao": posicao(c.semana_alvo),
+            "passou": c.semana_alvo <= semana,
+            "agora": proximo is not None and c.pk == proximo.pk,
+        }
+        for c in contactos
+    ]
     EventoUso.registar(
         EventoUso.CONSULTA_VISTA, idioma=gestante.idioma, distrito=gestante.distrito
     )
@@ -120,9 +138,13 @@ def inicio(request):
         "acompanhamento/inicio.html",
         {
             "gestante": gestante,
-            "semana_actual": gestante.semana_actual(hoje),
+            "semana_actual": semana,
+            "semanas_a_faltar": max(40 - semana, 0),
+            "percorrido": posicao(semana),
+            "marcas": marcas,
             "contactos": contactos,
-            "proximo": gestante.proximo_contacto(hoje),
+            "proximo": proximo,
+            "dias_para_proximo": (proximo.data_prevista - hoje).days if proximo else None,
         },
     )
 

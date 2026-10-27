@@ -5,47 +5,74 @@
 {% block conteudo %}
 <h1>{% t "inicio.saudacao" %}</h1>
 
-<div class="destaque">
-  <span class="rotulo">{% t "inicio.semana" %}</span>
-  <span class="valor">{{ semana_actual }}</span>
-</div>
+<section class="jornada" aria-label="{% t "inicio.semana" %}">
+  <p class="jornada-semana">
+    <span class="jornada-numero">{{ semana_actual }}</span>
+    <span class="jornada-rotulo">{% t "inicio.semana" %}</span>
+  </p>
+  <p class="jornada-falta">
+    {% if semanas_a_faltar %}{{ semanas_a_faltar }} {% t "inicio.faltam" %}{% else %}{% t "inicio.chegou" %}{% endif %}
+  </p>
+
+  <div class="trilho" role="img"
+       aria-label="{{ semana_actual }} de 40 {% t "inicio.semana"|lower %}">
+    <span class="trilho-interior">
+      <span class="trilho-linha"></span>
+      <span class="trilho-feito" style="width: {{ percorrido }}%"></span>
+      {% for m in marcas %}
+        <span class="trilho-marca{% if m.agora %} agora{% elif m.passou %} passou{% endif %}"
+              style="left: {{ m.posicao }}%"></span>
+      {% endfor %}
+    </span>
+  </div>
+  <p class="trilho-legenda"><span>4</span><span>40</span></p>
+</section>
 
 {% if proximo %}
-<div class="destaque">
-  <span class="rotulo">{% t "inicio.proxima" %}</span>
-  <span class="valor">{{ proximo.data_prevista|date:"j \d\e F \d\e Y" }}</span>
+<div class="cartao">
+  <span class="cartao-rotulo">{% t "inicio.proxima" %}</span>
+  <span class="cartao-valor">{{ proximo.data_prevista|date:"j \d\e F" }}</span>
+  {% if dias_para_proximo == 0 %}
+    <span class="cartao-nota">{% t "inicio.hoje" %}</span>
+  {% elif dias_para_proximo > 0 %}
+    <span class="cartao-nota">{% t "inicio.daqui" %} {{ dias_para_proximo }} {% t "inicio.dias" %}</span>
+  {% endif %}
 </div>
 {% endif %}
 
-<div class="destaque">
-  <span class="rotulo">{% t "inicio.parto" %}</span>
-  <span class="valor">{{ gestante.data_prevista_parto|date:"j \d\e F \d\e Y" }}</span>
+<div class="cartao">
+  <span class="cartao-rotulo">{% t "inicio.parto" %}</span>
+  <span class="cartao-valor">{{ gestante.data_prevista_parto|date:"j \d\e F \d\e Y" }}</span>
 </div>
 
+<a class="botao" href="{% url 'assistente:assistente' %}">{% t "inicio.perguntar" %}</a>
+
 <h2>{% t "nav.consultas" %}</h2>
-<ul class="consultas">
-  {% for c in contactos %}
-  <li>
-    <span>
-      <span class="quando">{{ c.data_prevista|date:"j \d\e F" }}</span><br>
-      <span class="semana">{{ c.semana_alvo }}ª {% t "inicio.semana"|lower %}</span>
-    </span>
-    {% if c.estado == "realizado" %}
-      <span class="etiqueta etiqueta-realizada">{% t "inicio.realizada" %}</span>
-    {% elif c.atrasado %}
-      <span class="etiqueta etiqueta-atraso">{% t "inicio.em.atraso" %}</span>
-    {% else %}
-      <span class="etiqueta etiqueta-marcada">{% t "inicio.agendada" %}</span>
-    {% endif %}
-  </li>
-  {% empty %}
-  <li>{% t "inicio.sem.consultas" %}</li>
-  {% endfor %}
-</ul>
+<div class="cartao">
+  <ul class="consultas">
+    {% for c in contactos %}
+    <li>
+      <span>
+        <span class="quando">{{ c.data_prevista|date:"j \d\e F" }}</span><br>
+        <span class="semana">{{ c.numero }} {% t "inicio.de" %} 8 — {{ c.semana_alvo }}ª</span>
+      </span>
+      {% if c.estado == "realizado" %}
+        <span class="etiqueta etiqueta-realizada">{% t "inicio.realizada" %}</span>
+      {% elif c.atrasado %}
+        <span class="etiqueta etiqueta-atraso">{% t "inicio.em.atraso" %}</span>
+      {% else %}
+        <span class="etiqueta etiqueta-marcada">{% t "inicio.agendada" %}</span>
+      {% endif %}
+    </li>
+    {% empty %}
+    <li>{% t "inicio.sem.consultas" %}</li>
+    {% endfor %}
+  </ul>
+</div>
 
 <h2>{% t "inicio.codigo" %}</h2>
-<p class="codigo-gestante">{{ gestante.codigo }}</p>
-<p class="explicacao">{% t "inicio.codigo.ajuda" %}</p>
-
-<a class="botao botao-secundario" href="{% url 'assistente:assistente' %}">{% t "inicio.perguntar" %}</a>
+<div class="cartao">
+  <span class="codigo-gestante">{{ gestante.codigo }}</span>
+  <span class="cartao-rotulo">{% t "inicio.codigo.ajuda" %}</span>
+</div>
 {% endblock %}

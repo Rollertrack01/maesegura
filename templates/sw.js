@@ -1,5 +1,8 @@
 {% load static %}/* Service worker do MãeSegura — cache de aplicação e conteúdo validado. */
-const CACHE = "maesegura-v2";
+/* Subir este número sempre que o CSS ou o JS mudarem: os ficheiros estáticos
+   são servidos da cache primeiro, e sem isto quem tem a aplicação instalada
+   continuaria a ver a versão antiga. */
+const CACHE = "maesegura-v3";
 const ESSENCIAIS = [
   "/offline/",
   "{% static 'css/app.css' %}",
