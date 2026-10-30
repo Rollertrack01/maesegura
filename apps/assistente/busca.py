@@ -13,6 +13,9 @@ rede. Qualquer alteração aqui tem de ser espelhada lá.
 """
 import re
 import unicodedata
+from functools import lru_cache
+
+from .emakhuwa import normalizada, traduzir_pergunta
 
 PALAVRAS_VAZIAS = {
     "a", "o", "as", "os", "um", "uma", "de", "do", "da", "dos", "das", "em", "no", "na",
@@ -28,6 +31,13 @@ PALAVRAS_VAZIAS = {
 }
 PESO_PALAVRA_CHAVE = 3
 PESO_PERGUNTA = 2
+# Uma correspondência que passou pela ponte do Emakhuwa (emakhuwa.py) vale
+# menos do que uma correspondência directa, e de propósito: o léxico ainda não
+# tem uma entrada confirmada por falante nativo. Com estes pesos, duas palavras
+# reconhecidas pela ponte chegam ao limiar; uma só nunca chega. Se a ponte se
+# enganar, é preciso que a frase a desminta — e basta que nada mais confirme.
+PESO_PONTE_CHAVE = 2
+PESO_PONTE_PERGUNTA = 1
 # Uma só palavra em comum (um "onde", um "perder") nunca chega para devolver
 # conteúdo clínico: exigimos duas correspondências, ou uma forte reforçada.
 LIMIAR = 4
@@ -55,7 +65,44 @@ def fichar(texto):
 
 
 def _conjunto(valor):
-    return fichar(valor or "")
+    """
+    Fichas comparáveis de um texto, com a grafia já assente.
+
+    Isto mudou na v0.6.0 e é a metade silenciosa da melhoria. Até aqui
+    comparavam-se as letras tal como saíram do teclado, e o Emakhuwa não se
+    escreve de uma só maneira: «ohawa» e «ohava», «nikhula» e «nikula»,
+    «otthuka» e «otuka» são a mesma palavra para quem a diz e eram palavras
+    diferentes para o motor. Passando ambos os lados pela normalização do
+    dicionário, a variação de grafia deixa de ser um obstáculo — e continua a
+    valer peso inteiro, porque não é uma aproximação: é a mesma palavra.
+
+    O português atravessa a mesma função. Perde pouco («chuva» fica «cuva»,
+    «barriga» fica «bariga»), e perde dos dois lados ao mesmo tempo, que é o
+    que importa para comparar.
+    """
+    return {normalizada(p) for p in fichar(valor or "")}
+
+
+@lru_cache(maxsize=256)
+def pontes(pergunta):
+    """
+    Palavras da pergunta que o léxico do dicionário reconhece como Emakhuwa.
+    Devolve ((palavra, glosa), …) — a mesma coisa que se mostra a quem perguntou.
+
+    Guardado em cache porque `avaliar` corre uma vez por conteúdo e a pergunta
+    é sempre a mesma: sem isto, traduzíamos a frase vinte e três vezes seguidas
+    para dar vinte e três vezes o mesmo resultado.
+    """
+    return tuple(traduzir_pergunta(sorted(fichar(pergunta))))
+
+
+@lru_cache(maxsize=256)
+def _fichas_da_ponte(pergunta):
+    """Glosas portuguesas das palavras reconhecidas, em fichas comparáveis."""
+    fichas = set()
+    for _, glosa in pontes(pergunta):
+        fichas |= _conjunto(glosa)
+    return frozenset(fichas)
 
 
 def avaliar(pergunta, item, idioma="pt"):
@@ -63,7 +110,7 @@ def avaliar(pergunta, item, idioma="pt"):
     `item` é um dicionário com chaves pergunta_pt/vmw e chaves_pt/vmw.
     Devolve (pontos, nº de palavras distintas em comum).
     """
-    entrada = fichar(pergunta)
+    entrada = _conjunto(pergunta)
     if not entrada:
         return 0, 0
 
@@ -78,7 +125,16 @@ def avaliar(pergunta, item, idioma="pt"):
 
     pontos = len(entrada & chaves) * PESO_PALAVRA_CHAVE
     pontos += len(entrada & perguntas) * PESO_PERGUNTA
-    return pontos, len(entrada & (chaves | perguntas))
+    comuns = entrada & (chaves | perguntas)
+
+    # A ponte entra depois e por fora: traduz a pergunta, nunca a resposta.
+    ponte = _fichas_da_ponte(pergunta) - entrada
+    if ponte:
+        pontos += len(ponte & chaves) * PESO_PONTE_CHAVE
+        pontos += len(ponte & perguntas) * PESO_PONTE_PERGUNTA
+        comuns |= ponte & (chaves | perguntas)
+
+    return pontos, len(comuns)
 
 
 def pontuar(pergunta, item, idioma="pt"):
@@ -88,7 +144,7 @@ def pontuar(pergunta, item, idioma="pt"):
 def procurar(pergunta, itens, idioma="pt", limite=3):
     """Devolve [(item, pontos)] ordenado, só acima do limiar."""
     # Não se pode exigir duas palavras em comum a quem escreveu só uma.
-    exigidas = min(MINIMO_PALAVRAS_COMUNS, len(fichar(pergunta))) or 1
+    exigidas = min(MINIMO_PALAVRAS_COMUNS, len(_conjunto(pergunta))) or 1
     pontuados = []
     for item in itens:
         pontos, comuns = avaliar(pergunta, item, idioma)

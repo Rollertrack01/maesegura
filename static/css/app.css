@@ -292,6 +292,18 @@ textarea { min-height: 116px; resize: vertical; line-height: 1.55; }
 .resposta p { margin: 0 0 11px; }
 .resposta p:last-child { margin-bottom: 0; }
 .resposta .meta { font-size: .82rem; color: var(--tinta-suave); line-height: 1.5; }
+
+/* Como a pergunta em Emakhuwa foi entendida. Discreto de propósito: é uma
+   explicação, não uma resposta, e não pode competir com o aviso vermelho
+   de um sinal de perigo logo a seguir. */
+.ponte-lexical {
+  font-size: .82rem;
+  color: var(--tinta-suave);
+  line-height: 1.5;
+  margin: 0 0 .75rem;
+  padding-left: .6rem;
+  border-left: 2px solid var(--linha);
+}
 .resposta-urgente { border-left: 5px solid var(--perigo); background: var(--perigo-fundo); }
 .resposta-atencao { border-left: 5px solid var(--ambar); background: var(--ambar-fundo); }
 

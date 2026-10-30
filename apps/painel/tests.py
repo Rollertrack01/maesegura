@@ -46,3 +46,15 @@ class SaudeTest(TestCase):
         self.assertEqual(dados["estado"], "ok")
         self.assertTrue(dados["validacao_clinica_exigida"])
         self.assertFalse(dados["llm_activo"])
+
+    def test_saude_declara_o_que_o_lexico_faz(self):
+        """
+        A fronteira tem de ser verificável de fora, sem consola: o léxico do
+        Emakhuwa serve para procurar e não escreve respostas.
+        """
+        dados = self.client.get("/saude/").json()
+        lexico = dados["lexico_emakhuwa"]
+        self.assertGreater(lexico["entradas"], 0)
+        self.assertEqual(lexico["usado_para"], "procura")
+        self.assertFalse(lexico["escreve_respostas"])
+        self.assertFalse(lexico["validado_por_falante_nativo"])

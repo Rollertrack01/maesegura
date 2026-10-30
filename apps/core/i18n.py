@@ -98,6 +98,11 @@ CADEIAS = {
         "pt": "Ainda não temos uma resposta revista para esta pergunta. Procure a unidade sanitária mais próxima e fale com um profissional de saúde.",
         "vmw": "Khaninnakhalana wakhula woolikaniheriwa wa nkoho nla. Mwaaye ekwartu ya ehaupa, mulavuleke ni namalapa a ehaupa.",
     },
+    # Deliberadamente igual nas duas línguas. A linha que esta etiqueta
+    # encabeça é quase toda dados («muru» = cabeça), e inventar aqui uma frase
+    # em Emakhuwa seria fazer exactamente o que o resto do sistema proíbe:
+    # escrever na língua sem falante que o confirme. Fica à espera de revisão.
+    "assistente.ponte": {"pt": "Emakhuwa → português", "vmw": "Emakhuwa → português"},
     "assistente.fonte": {"pt": "Fonte", "vmw": "Nipuro na myaha"},
     "assistente.validado": {"pt": "Revisto por", "vmw": "Woolikaniheriwa ni"},
     "assistente.offline": {

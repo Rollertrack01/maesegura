@@ -12,6 +12,11 @@
 
 <div id="respostas">
 {% if respondeu is not None %}
+  {% if pontes %}
+    <p class="meta ponte-lexical">{% t "assistente.ponte" %}:
+      {% for palavra, glosa in pontes %}«{{ palavra }}» = {{ glosa }}{% if not forloop.last %} · {% endif %}{% endfor %}
+    </p>
+  {% endif %}
   {% if resultados %}
     {% for c, pontos in resultados %}
       {% if c.gravidade == URGENTE and forloop.first %}

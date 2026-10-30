@@ -6,7 +6,8 @@ from apps.acompanhamento.models import EventoUso, Gestante
 from apps.acompanhamento.views import CHAVE_SESSAO_GESTANTE
 from apps.core.antirobo import verificar
 
-from .busca import procurar
+from .busca import pontes, procurar
+from .emakhuwa import ENTRADAS as ENTRADAS_LEXICO
 from .models import Conhecimento
 
 
@@ -30,6 +31,7 @@ def assistente(request):
     pergunta = ""
     resultados = []
     respondeu = None
+    pontes_usadas = ()
 
     aviso_antirobo = ""
     processar = request.method == "POST"
@@ -52,6 +54,10 @@ def assistente(request):
         mapa = {j["id"]: c for c, j in itens}
         resultados = [(mapa[item["id"]], pontos) for item, pontos in encontrados]
         respondeu = bool(resultados)
+        # Mostrar como a pergunta foi entendida. Vale sobretudo quando não há
+        # resposta: quem escreveu «oyara» fica a saber que a palavra foi lida
+        # como «dar à luz» e que o vazio não é da escrita dela.
+        pontes_usadas = pontes(pergunta)
 
         distrito = gestante.distrito if gestante else ""
         if respondeu:
@@ -70,6 +76,7 @@ def assistente(request):
             "pergunta": pergunta,
             "resultados": resultados,
             "respondeu": respondeu,
+            "pontes": pontes_usadas,
             "destaques": destaques,
             "unidade": unidade,
             "aviso_antirobo": aviso_antirobo,
@@ -87,8 +94,16 @@ def conhecimento_json(request):
     para o assistente funcionar sem rede, e é também um dado público do projecto.
     """
     itens = [c.para_json() for c in _base_de_conhecimento()]
+    # O léxico viaja no mesmo ficheiro de propósito: é o único que o service
+    # worker guarda, e uma mulher sem rede tem de poder escrever em Emakhuwa
+    # tal como escreveria com rede. São cerca de 7 KB — pesados uma vez,
+    # guardados no telemóvel, e nunca tocam no texto das respostas.
+    lexico = [
+        {"lema": e["lema"], "glosa": e["glosa"]}
+        for e in ENTRADAS_LEXICO
+    ]
     resposta = JsonResponse(
-        {"total": len(itens), "itens": itens},
+        {"total": len(itens), "itens": itens, "lexico": lexico},
         json_dumps_params={"ensure_ascii": False},
     )
     resposta["Cache-Control"] = "public, max-age=300"

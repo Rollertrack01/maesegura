@@ -5,6 +5,8 @@ from django.shortcuts import render
 from django.views.decorators.cache import cache_control
 from django.views.decorators.http import require_GET
 
+from apps.assistente.emakhuwa import ENTRADAS as ENTRADAS_LEXICO
+
 
 @require_GET
 def saude(request):
@@ -23,6 +25,16 @@ def saude(request):
             "base_dados": base_dados,
             "validacao_clinica_exigida": settings.EXIGIR_VALIDACAO_CLINICA,
             "llm_activo": settings.LLM_ACTIVO,
+            # Declarado aqui de propósito. Quem avaliar o sistema não tem de
+            # acreditar na nossa palavra sobre o que o léxico do Emakhuwa faz:
+            # vê, num endereço público, que serve para procurar e que não
+            # escreve resposta nenhuma.
+            "lexico_emakhuwa": {
+                "entradas": len(ENTRADAS_LEXICO),
+                "usado_para": "procura",
+                "escreve_respostas": False,
+                "validado_por_falante_nativo": False,
+            },
         },
         status=estado,
     )

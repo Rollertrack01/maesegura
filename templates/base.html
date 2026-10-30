@@ -9,7 +9,16 @@
 <link rel="icon" href="{% static 'icones/icone.svg' %}" type="image/svg+xml">
 <link rel="stylesheet" href="{% static 'css/app.css' %}">
 </head>
-<body>
+{% comment %}
+  Textos de que a camada offline precisa. Sem isto, uma pergunta sem resposta
+  feita fora de rede mostrava uma caixa vazia: o JavaScript lia
+  `dataset.semResposta`, que nunca era escrito.
+
+  E tem de ser {% comment %}, não {#...#}: a forma curta só vale numa linha, e
+  escrita em três linhas o Django imprime-a na página. Foi o que aconteceu.
+{% endcomment %}
+<body data-sem-resposta="{% t "assistente.sem.resposta" %}"
+      data-rotulo-ponte="{% t "assistente.ponte" %}">
 <div class="barra-capulana" aria-hidden="true"></div>
 <header class="topo">
   <a class="marca" href="{% url 'acompanhamento:inicio' %}">

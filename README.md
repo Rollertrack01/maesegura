@@ -18,7 +18,8 @@ dados, interface e base de conhecimento.
    registou.
 3. **Assistente de perguntas e respostas** em português e Emakhuwa, que recupera
    conteúdo clínico validado e encaminha para a unidade sanitária quando
-   reconhece um sinal de perigo.
+   reconhece um sinal de perigo. Desde a v0.6.0, a procura assenta a grafia do
+   Emakhuwa e usa um léxico para ligar a pergunta ao conteúdo — ver abaixo.
 4. **Funciona sem rede.** A base de conhecimento validada é guardada no
    telemóvel e o mesmo algoritmo de busca corre em JavaScript quando não há
    ligação.
@@ -72,6 +73,76 @@ antes de qualquer uso real:**
 - **Revisão linguística** das traduções para Emakhuwa, por falante nativo com
   formação em saúde. Os textos em Emakhuwa são rascunhos de trabalho; o campo
   `traducao_vmw_validada` só deve ser marcado depois dessa revisão.
+
+## O léxico do Emakhuwa (v0.6.0, alargado na v0.7.0)
+
+O assistente usa o léxico do **Tradutor e Dicionário Emakhuwa** em
+`apps/assistente/dados/lexico_vmw.json` — 307 entradas, cada uma com a
+variante e o documento de onde veio. Variante de referência: **Emakhuwa
+Central (`vmw`)**, a de Nampula. Base normativa: Ngunga & Faquir (2014),
+*Padronização da Ortografia de Línguas Moçambicanas* (CELM/UEM); gramática de
+Kröger (2009); *Vocabulário de Emakhuwa Central* (SIL, 2010). Quando duas
+grafias caem na mesma chave, fica a forma Central.
+
+Faz duas coisas, e só duas.
+
+**Assenta a grafia.** O Emakhuwa não se escreve de uma só maneira. «okhuma
+maasi» e «okuma masi» são a mesma coisa para quem as diz, e eram perguntas
+diferentes para o motor de busca. Agora os dois lados da comparação passam pela
+mesma normalização — aspiradas, vogais longas, `w`/`y` — e a variação deixa de
+esconder a resposta. Isto vale peso inteiro: não é uma aproximação, é a mesma
+palavra.
+
+**Liga a pergunta ao conteúdo em português.** Quem escreve «muru ereca» chega
+ao conteúdo sobre dor de cabeça e doença, ainda que as palavras-chave estejam
+só em português. A página diz-lhe como foi entendida: *«muru» = cabeça*.
+
+**O que o léxico nunca faz:** escrever, traduzir ou alterar uma resposta. O
+acervo não tem uma única entrada confirmada por falante nativo; deixá-lo tocar
+no texto que uma grávida lê seria pôr palavra por validar na boca de quem
+assinou outra coisa. Por isso uma correspondência vinda do léxico vale menos do
+que uma correspondência directa (`PESO_PONTE_*` em `busca.py`): duas palavras
+reconhecidas chegam ao limiar, uma sozinha nunca chega. Se o léxico se enganar
+— e vai, com um acervo por validar —, é preciso que o resto da frase o
+confirme.
+
+A fronteira é verificável de fora, sem consola, em `/saude/`:
+
+```json
+"lexico_emakhuwa": {
+  "entradas": 157, "usado_para": "procura",
+  "escreve_respostas": false, "validado_por_falante_nativo": false
+}
+```
+
+### O que a tolerância apaga
+
+A norma de 2014 marca a duração vocálica por duplicação, e ela é distintiva:
+*omala* (acabar) e *omaala* (calar-se) são palavras diferentes. A aspiração
+também: *ephula* (nariz) e *epula* (chuva). A normalização desta casa funde as
+duas coisas.
+
+É uma perda consciente, e o sentido da troca é este: quem escreve é uma mulher
+grávida num telemóvel, sem ter aprendido a norma, e a grafia que lhe sai não é
+uma escolha. Entre não encontrar um sinal de perigo e encontrar um conteúdo a
+mais, a segunda falha é a que se corrige a olhar para o ecrã.
+
+Os pares que a norma distingue e nós fundimos estão fixados em
+`apps/assistente/tests.py` (`ParesQueANormalizacaoFundeTest`), junto com um
+teste que falha no dia em que os dois membros de um par aparecerem ambos no
+conteúdo clínico — altura em que a fusão deixa de ser inofensiva e alguém tem
+de decidir.
+
+Continuam distintos, e bem: `h`/`kh` (*hapa* fígado, *khapa* cágado) e
+`f`/`ph` (*efuula* flor, *ephula* nariz).
+
+**Achado a devolver ao projecto do dicionário:** a normalização herdada do
+acervo v0.2 reduz `ph` a `p` e colapsa vogais dobradas, o que apaga duas
+distinções que os documentos normativos marcam como distintivas. Para a busca
+compensa; para o dicionário, onde a entrada é a palavra, não compensa — ali a
+grafia exacta deve ganhar sempre à normalizada, e ganha, porque o `peso()` do
+dicionário tem a correspondência exacta em primeiro lugar. Vale a pena
+registar o caso no glossário, na secção «Pares e ambiguidades a vigiar».
 
 ## Correr localmente
 

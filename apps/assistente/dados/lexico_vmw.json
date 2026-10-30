@@ -1,0 +1,1854 @@
+{
+ "fonte": "Tradutor e Dicionário Emakhuwa — acervo v0.2 e base de conhecimento de 30/10/2026",
+ "variante_de_referencia": "Emakhuwa Central (vmw), Nampula",
+ "normas": [
+  "Ngunga, A. & Faquir, O. (2014). Padronização da Ortografia de Línguas Moçambicanas: Relatório do VI Seminário. CELM/UEM.",
+  "Kröger, O. (2009). Algumas notas gramaticais sobre a língua Emakhuwa. SIL Moçambique.",
+  "Vocabulário de Emakhuwa Central, SIL Moçambique (2010)."
+ ],
+ "aviso": "Por validar com falantes de Nampula. Serve para ENCONTRAR conteúdo clínico assinado; não escreve, não traduz e não altera nenhuma resposta.",
+ "entradas": [
+  {
+   "lema": "-ili",
+   "glosa": "dois",
+   "variante": "C",
+   "origem": "acervo-v0.2"
+  },
+  {
+   "lema": "-khaani",
+   "glosa": "pequeno",
+   "variante": "C",
+   "origem": "acervo-v0.2"
+  },
+  {
+   "lema": "-kumi",
+   "glosa": "vivo",
+   "variante": "C",
+   "origem": "acervo-v0.2"
+  },
+  {
+   "lema": "-lupale",
+   "glosa": "grande",
+   "variante": "C",
+   "origem": "acervo-v0.2"
+  },
+  {
+   "lema": "-moza",
+   "glosa": "um",
+   "variante": "C",
+   "origem": "acervo-v0.2"
+  },
+  {
+   "lema": "-ntthu",
+   "glosa": "grande",
+   "variante": "C",
+   "origem": "acervo-v0.2"
+  },
+  {
+   "lema": "-raru",
+   "glosa": "três",
+   "variante": "C",
+   "origem": "acervo-v0.2"
+  },
+  {
+   "lema": "-sya",
+   "glosa": "novo",
+   "variante": "C",
+   "origem": "acervo-v0.2"
+  },
+  {
+   "lema": "-thanu",
+   "glosa": "cinco",
+   "variante": "C",
+   "origem": "acervo-v0.2"
+  },
+  {
+   "lema": "-vyaani",
+   "glosa": "pequeno",
+   "variante": "C",
+   "origem": "acervo-v0.2"
+  },
+  {
+   "lema": "-xexe",
+   "glosa": "quatro",
+   "variante": "C",
+   "origem": "acervo-v0.2"
+  },
+  {
+   "lema": "Muluku",
+   "glosa": "Deus",
+   "variante": "C",
+   "origem": "acervo-v0.2"
+  },
+  {
+   "lema": "aletto",
+   "glosa": "hóspedes",
+   "variante": "C",
+   "origem": "doc 01 ortografia"
+  },
+  {
+   "lema": "alufu",
+   "glosa": "mil",
+   "variante": "C",
+   "origem": "doc 02 §6 numerais"
+  },
+  {
+   "lema": "amaama",
+   "glosa": "mãe",
+   "variante": "C",
+   "origem": "acervo-v0.2"
+  },
+  {
+   "lema": "apaapa",
+   "glosa": "pai",
+   "variante": "C",
+   "origem": "acervo-v0.2"
+  },
+  {
+   "lema": "ataata",
+   "glosa": "tio, sogro",
+   "variante": "C",
+   "origem": "doc 03 §3.1 parentesco"
+  },
+  {
+   "lema": "ayo",
+   "glosa": "sim",
+   "variante": "C",
+   "origem": "acervo-v0.2"
+  },
+  {
+   "lema": "dumingu",
+   "glosa": "domingo",
+   "variante": "C",
+   "origem": "doc 01 ortografia"
+  },
+  {
+   "lema": "efuula",
+   "glosa": "flor",
+   "variante": "C",
+   "origem": "doc 01 ortografia"
+  },
+  {
+   "lema": "ehopa",
+   "glosa": "peixe",
+   "variante": "C",
+   "origem": "acervo-v0.2"
+  },
+  {
+   "lema": "ekarapa",
+   "glosa": "livro; carta, papel",
+   "variante": "C",
+   "origem": "acervo-v0.2"
+  },
+  {
+   "lema": "ekhalawa",
+   "glosa": "barco, embarcação",
+   "variante": "C",
+   "origem": "acervo-v0.2"
+  },
+  {
+   "lema": "ekhuku",
+   "glosa": "galinha",
+   "variante": "C",
+   "origem": "acervo-v0.2"
+  },
+  {
+   "lema": "ekisirwa",
+   "glosa": "ilha",
+   "variante": "C",
+   "origem": "doc 01 ortografia"
+  },
+  {
+   "lema": "ekoko",
+   "glosa": "mandioca",
+   "variante": "C",
+   "origem": "acervo-v0.2"
+  },
+  {
+   "lema": "ekoma",
+   "glosa": "tambor",
+   "variante": "C",
+   "origem": "acervo-v0.2"
+  },
+  {
+   "lema": "ekuwo",
+   "glosa": "pano",
+   "variante": "C",
+   "origem": "acervo-v0.2"
+  },
+  {
+   "lema": "ekwaha",
+   "glosa": "viagem",
+   "variante": "C",
+   "origem": "doc 01 ortografia"
+  },
+  {
+   "lema": "ekweeli",
+   "glosa": "verdade",
+   "variante": "C",
+   "origem": "doc 01 ortografia"
+  },
+  {
+   "lema": "elapo",
+   "glosa": "terra; país, região",
+   "variante": "C",
+   "origem": "acervo-v0.2"
+  },
+  {
+   "lema": "elivuru",
+   "glosa": "livro",
+   "variante": "C",
+   "origem": "acervo-v0.2"
+  },
+  {
+   "lema": "emattha",
+   "glosa": "machamba, campo de cultivo",
+   "variante": "C",
+   "origem": "acervo-v0.2"
+  },
+  {
+   "lema": "emosa",
+   "glosa": "um",
+   "variante": "C",
+   "origem": "doc 02 §6 numerais"
+  },
+  {
+   "lema": "enama",
+   "glosa": "animal; carne",
+   "variante": "C",
+   "origem": "acervo-v0.2"
+  },
+  {
+   "lema": "enika",
+   "glosa": "banana",
+   "variante": "C",
+   "origem": "acervo-v0.2"
+  },
+  {
+   "lema": "enupa",
+   "glosa": "casa, habitação",
+   "variante": "C",
+   "origem": "acervo-v0.2"
+  },
+  {
+   "lema": "ephiro",
+   "glosa": "caminho, estrada",
+   "variante": "C",
+   "origem": "acervo-v0.2"
+  },
+  {
+   "lema": "ephiyo",
+   "glosa": "enxada",
+   "variante": "C",
+   "origem": "acervo-v0.2"
+  },
+  {
+   "lema": "epula",
+   "glosa": "chuva",
+   "variante": "C",
+   "origem": "acervo-v0.2"
+  },
+  {
+   "lema": "epuri",
+   "glosa": "cabrito, cabra",
+   "variante": "C",
+   "origem": "acervo-v0.2"
+  },
+  {
+   "lema": "epweteiro",
+   "glosa": "panela",
+   "variante": "C",
+   "origem": "acervo-v0.2"
+  },
+  {
+   "lema": "ereca",
+   "glosa": "doença",
+   "variante": "C",
+   "origem": "acervo-v0.2"
+  },
+  {
+   "lema": "erutthu",
+   "glosa": "corpo",
+   "variante": "C",
+   "origem": "acervo-v0.2"
+  },
+  {
+   "lema": "esikola",
+   "glosa": "escola",
+   "variante": "C",
+   "origem": "acervo-v0.2"
+  },
+  {
+   "lema": "esuwo",
+   "glosa": "sal",
+   "variante": "C",
+   "origem": "acervo-v0.2"
+  },
+  {
+   "lema": "ethawa",
+   "glosa": "mercado, feira",
+   "variante": "C",
+   "origem": "acervo-v0.2"
+  },
+  {
+   "lema": "etheka",
+   "glosa": "bebida tradicional fermentada",
+   "variante": "C",
+   "origem": "acervo-v0.2"
+  },
+  {
+   "lema": "etheru",
+   "glosa": "verdade",
+   "variante": "C",
+   "origem": "acervo-v0.2"
+  },
+  {
+   "lema": "ethowa",
+   "glosa": "povoação, aldeia",
+   "variante": "C",
+   "origem": "acervo-v0.2"
+  },
+  {
+   "lema": "etthu",
+   "glosa": "coisa",
+   "variante": "C",
+   "origem": "acervo-v0.2"
+  },
+  {
+   "lema": "exeeni",
+   "glosa": "o quê?",
+   "variante": "C",
+   "origem": "acervo-v0.2"
+  },
+  {
+   "lema": "hapa",
+   "glosa": "fígado",
+   "variante": "C",
+   "origem": "doc 01 ortografia"
+  },
+  {
+   "lema": "ikhove",
+   "glosa": "sono",
+   "variante": "C",
+   "origem": "doc 01 ortografia"
+  },
+  {
+   "lema": "jampali",
+   "glosa": "tipo de sandália",
+   "variante": "C",
+   "origem": "doc 01 ortografia"
+  },
+  {
+   "lema": "khapa",
+   "glosa": "cágado",
+   "variante": "C",
+   "origem": "doc 01 ortografia"
+  },
+  {
+   "lema": "koshukuru",
+   "glosa": "obrigado",
+   "variante": "C",
+   "origem": "acervo-v0.2"
+  },
+  {
+   "lema": "luukhu",
+   "glosa": "rapaz não iniciado",
+   "variante": "C",
+   "origem": "doc 01 ortografia"
+  },
+  {
+   "lema": "maaka",
+   "glosa": "sal",
+   "variante": "C",
+   "origem": "doc 01 ortografia"
+  },
+  {
+   "lema": "maasi",
+   "glosa": "água",
+   "variante": "C",
+   "origem": "acervo-v0.2"
+  },
+  {
+   "lema": "malaku",
+   "glosa": "boca",
+   "variante": "C",
+   "origem": "doc 01 ortografia"
+  },
+  {
+   "lema": "maniilya",
+   "glosa": "esgoto",
+   "variante": "C",
+   "origem": "doc 01 ortografia"
+  },
+  {
+   "lema": "meelo",
+   "glosa": "amanhã",
+   "variante": "C",
+   "origem": "acervo-v0.2"
+  },
+  {
+   "lema": "moro",
+   "glosa": "fogo",
+   "variante": "C",
+   "origem": "acervo-v0.2"
+  },
+  {
+   "lema": "mosa",
+   "glosa": "um",
+   "variante": "C",
+   "origem": "doc 02 §6 numerais"
+  },
+  {
+   "lema": "mpatthani",
+   "glosa": "amigo, companheiro",
+   "variante": "C",
+   "origem": "acervo-v0.2"
+  },
+  {
+   "lema": "muhakhu",
+   "glosa": "riqueza, bens",
+   "variante": "C",
+   "origem": "acervo-v0.2"
+  },
+  {
+   "lema": "muhina",
+   "glosa": "nome",
+   "variante": "C",
+   "origem": "acervo-v0.2"
+  },
+  {
+   "lema": "mukhuwo",
+   "glosa": "costume, tradição",
+   "variante": "C",
+   "origem": "acervo-v0.2"
+  },
+  {
+   "lema": "mukole",
+   "glosa": "coqueiro",
+   "variante": "C",
+   "origem": "acervo-v0.2"
+  },
+  {
+   "lema": "mulamu",
+   "glosa": "cunhado",
+   "variante": "C",
+   "origem": "acervo-v0.2"
+  },
+  {
+   "lema": "muloko",
+   "glosa": "dez",
+   "variante": "C",
+   "origem": "doc 02 §6 numerais"
+  },
+  {
+   "lema": "mulopwana",
+   "glosa": "homem, varão",
+   "variante": "C",
+   "origem": "acervo-v0.2"
+  },
+  {
+   "lema": "muretta",
+   "glosa": "remédio, medicamento",
+   "variante": "C",
+   "origem": "acervo-v0.2"
+  },
+  {
+   "lema": "murima",
+   "glosa": "coração",
+   "variante": "C",
+   "origem": "acervo-v0.2"
+  },
+  {
+   "lema": "muru",
+   "glosa": "cabeça",
+   "variante": "C",
+   "origem": "acervo-v0.2"
+  },
+  {
+   "lema": "musurukhu",
+   "glosa": "dinheiro",
+   "variante": "C",
+   "origem": "acervo-v0.2"
+  },
+  {
+   "lema": "muteko",
+   "glosa": "trabalho, tarefa",
+   "variante": "C",
+   "origem": "acervo-v0.2"
+  },
+  {
+   "lema": "muthiyana",
+   "glosa": "mulher",
+   "variante": "C",
+   "origem": "acervo-v0.2"
+  },
+  {
+   "lema": "muttetthe",
+   "glosa": "terra, solo, chão",
+   "variante": "C",
+   "origem": "acervo-v0.2"
+  },
+  {
+   "lema": "mutthu",
+   "glosa": "pessoa, ser humano",
+   "variante": "C",
+   "origem": "acervo-v0.2"
+  },
+  {
+   "lema": "mwaana",
+   "glosa": "criança; filho, filha",
+   "variante": "C",
+   "origem": "acervo-v0.2"
+  },
+  {
+   "lema": "mwako",
+   "glosa": "monte",
+   "variante": "C",
+   "origem": "acervo-v0.2"
+  },
+  {
+   "lema": "mwana",
+   "glosa": "filho",
+   "variante": "C",
+   "origem": "doc 01 ortografia"
+  },
+  {
+   "lema": "mweeri",
+   "glosa": "lua; mês",
+   "variante": "C",
+   "origem": "acervo-v0.2"
+  },
+  {
+   "lema": "mwene",
+   "glosa": "régulo, chefe tradicional, soberano",
+   "variante": "C",
+   "origem": "acervo-v0.2"
+  },
+  {
+   "lema": "mwiri",
+   "glosa": "árvore; pau, madeira",
+   "variante": "C",
+   "origem": "acervo-v0.2"
+  },
+  {
+   "lema": "namarokolo",
+   "glosa": "lebre",
+   "variante": "C",
+   "origem": "acervo-v0.2"
+  },
+  {
+   "lema": "namuteko",
+   "glosa": "trabalhador",
+   "variante": "C",
+   "origem": "acervo-v0.2"
+  },
+  {
+   "lema": "nawu",
+   "glosa": "pé, perna",
+   "variante": "C",
+   "origem": "acervo-v0.2"
+  },
+  {
+   "lema": "ncace",
+   "glosa": "cogumelo",
+   "variante": "C",
+   "origem": "doc 01 ortografia"
+  },
+  {
+   "lema": "neeku",
+   "glosa": "nuvem",
+   "variante": "C",
+   "origem": "acervo-v0.2"
+  },
+  {
+   "lema": "nihiku",
+   "glosa": "dia",
+   "variante": "C",
+   "origem": "acervo-v0.2"
+  },
+  {
+   "lema": "nikhula",
+   "glosa": "farinha",
+   "variante": "C",
+   "origem": "acervo-v0.2"
+  },
+  {
+   "lema": "nikhuwo",
+   "glosa": "coco",
+   "variante": "C",
+   "origem": "acervo-v0.2"
+  },
+  {
+   "lema": "nitho",
+   "glosa": "olho",
+   "variante": "C",
+   "origem": "acervo-v0.2"
+  },
+  {
+   "lema": "nivaka",
+   "glosa": "zagaia",
+   "variante": "C",
+   "origem": "acervo-v0.2"
+  },
+  {
+   "lema": "niyaru",
+   "glosa": "orelha, ouvido",
+   "variante": "C",
+   "origem": "acervo-v0.2"
+  },
+  {
+   "lema": "nlapo",
+   "glosa": "rio",
+   "variante": "C",
+   "origem": "acervo-v0.2"
+  },
+  {
+   "lema": "nlelo",
+   "glosa": "língua, linguagem",
+   "variante": "C",
+   "origem": "acervo-v0.2"
+  },
+  {
+   "lema": "nnaari",
+   "glosa": "não",
+   "variante": "C",
+   "origem": "acervo-v0.2"
+  },
+  {
+   "lema": "nsu",
+   "glosa": "voz",
+   "variante": "C",
+   "origem": "doc 01 ortografia"
+  },
+  {
+   "lema": "nsuwa",
+   "glosa": "sol",
+   "variante": "C",
+   "origem": "acervo-v0.2"
+  },
+  {
+   "lema": "ntata",
+   "glosa": "mão, braço",
+   "variante": "C",
+   "origem": "acervo-v0.2"
+  },
+  {
+   "lema": "nttiva",
+   "glosa": "dança tradicional",
+   "variante": "C",
+   "origem": "acervo-v0.2"
+  },
+  {
+   "lema": "nuulumo",
+   "glosa": "palavra; assunto, questão",
+   "variante": "C",
+   "origem": "acervo-v0.2"
+  },
+  {
+   "lema": "nuume",
+   "glosa": "sapo",
+   "variante": "C",
+   "origem": "doc 01 ortografia"
+  },
+  {
+   "lema": "nyengera",
+   "glosa": "árvore",
+   "variante": "C",
+   "origem": "doc 01 ortografia"
+  },
+  {
+   "lema": "ohakalala",
+   "glosa": "alegrar-se, estar contente",
+   "variante": "C",
+   "origem": "acervo-v0.2"
+  },
+  {
+   "lema": "ohawa",
+   "glosa": "sofrimento",
+   "variante": "C",
+   "origem": "acervo-v0.2"
+  },
+  {
+   "lema": "ohimya",
+   "glosa": "dizer, contar",
+   "variante": "C",
+   "origem": "acervo-v0.2"
+  },
+  {
+   "lema": "ohiya",
+   "glosa": "deixar, abandonar; parar de",
+   "variante": "C",
+   "origem": "acervo-v0.2"
+  },
+  {
+   "lema": "ohiyu",
+   "glosa": "noite",
+   "variante": "C",
+   "origem": "acervo-v0.2"
+  },
+  {
+   "lema": "ohoola",
+   "glosa": "adiantar",
+   "variante": "C",
+   "origem": "doc 01 ortografia"
+  },
+  {
+   "lema": "okathi",
+   "glosa": "tempo, momento",
+   "variante": "C",
+   "origem": "acervo-v0.2"
+  },
+  {
+   "lema": "okhala",
+   "glosa": "estar, ficar, morar, viver em",
+   "variante": "C",
+   "origem": "acervo-v0.2"
+  },
+  {
+   "lema": "okhaliherya",
+   "glosa": "ajudar",
+   "variante": "C",
+   "origem": "acervo-v0.2"
+  },
+  {
+   "lema": "okhuma",
+   "glosa": "sair, provir de",
+   "variante": "C",
+   "origem": "acervo-v0.2"
+  },
+  {
+   "lema": "okhwa",
+   "glosa": "morrer",
+   "variante": "C",
+   "origem": "acervo-v0.2"
+  },
+  {
+   "lema": "okoha",
+   "glosa": "perguntar",
+   "variante": "C",
+   "origem": "acervo-v0.2"
+  },
+  {
+   "lema": "okumi",
+   "glosa": "vida",
+   "variante": "C",
+   "origem": "acervo-v0.2"
+  },
+  {
+   "lema": "okuxa",
+   "glosa": "levar",
+   "variante": "C",
+   "origem": "acervo-v0.2"
+  },
+  {
+   "lema": "olavula",
+   "glosa": "falar, conversar",
+   "variante": "C",
+   "origem": "acervo-v0.2"
+  },
+  {
+   "lema": "olelo",
+   "glosa": "hoje",
+   "variante": "C",
+   "origem": "acervo-v0.2"
+  },
+  {
+   "lema": "olepa",
+   "glosa": "escrever",
+   "variante": "C",
+   "origem": "acervo-v0.2"
+  },
+  {
+   "lema": "olima",
+   "glosa": "cultivar, lavrar a machamba",
+   "variante": "C",
+   "origem": "acervo-v0.2"
+  },
+  {
+   "lema": "olya",
+   "glosa": "comer",
+   "variante": "C",
+   "origem": "acervo-v0.2"
+  },
+  {
+   "lema": "omala",
+   "glosa": "acabar, terminar",
+   "variante": "C",
+   "origem": "acervo-v0.2"
+  },
+  {
+   "lema": "omora",
+   "glosa": "cair",
+   "variante": "C",
+   "origem": "acervo-v0.2"
+  },
+  {
+   "lema": "omwene",
+   "glosa": "reino",
+   "variante": "C",
+   "origem": "acervo-v0.2"
+  },
+  {
+   "lema": "onanara",
+   "glosa": "ser mau, estragar-se",
+   "variante": "C",
+   "origem": "acervo-v0.2"
+  },
+  {
+   "lema": "onyonyawa",
+   "glosa": "lavar as mãos",
+   "variante": "C",
+   "origem": "doc 01 ortografia"
+  },
+  {
+   "lema": "oovya",
+   "glosa": "queimada",
+   "variante": "C",
+   "origem": "doc 01 ortografia"
+  },
+  {
+   "lema": "opacerya",
+   "glosa": "começar, iniciar",
+   "variante": "C",
+   "origem": "acervo-v0.2"
+  },
+  {
+   "lema": "ophenta",
+   "glosa": "amar, gostar de, querer",
+   "variante": "C",
+   "origem": "acervo-v0.2"
+  },
+  {
+   "lema": "opwetexa",
+   "glosa": "cozinhar",
+   "variante": "C",
+   "origem": "acervo-v0.2"
+  },
+  {
+   "lema": "oravo",
+   "glosa": "mel",
+   "variante": "C",
+   "origem": "doc 01 ortografia"
+  },
+  {
+   "lema": "oreeriwa",
+   "glosa": "felicidade",
+   "variante": "C",
+   "origem": "acervo-v0.2"
+  },
+  {
+   "lema": "orera",
+   "glosa": "ser bom, ser bonito; estar bem",
+   "variante": "C",
+   "origem": "acervo-v0.2"
+  },
+  {
+   "lema": "orilu",
+   "glosa": "infelicidade",
+   "variante": "C",
+   "origem": "acervo-v0.2"
+  },
+  {
+   "lema": "orimela",
+   "glosa": "desaparecer",
+   "variante": "C",
+   "origem": "acervo-v0.2"
+  },
+  {
+   "lema": "oripiwa murima",
+   "glosa": "entristecer-se",
+   "variante": "C",
+   "origem": "acervo-v0.2"
+  },
+  {
+   "lema": "orowa",
+   "glosa": "ir, partir",
+   "variante": "C",
+   "origem": "acervo-v0.2"
+  },
+  {
+   "lema": "orowela",
+   "glosa": "buscar, ir buscar",
+   "variante": "C",
+   "origem": "acervo-v0.2"
+  },
+  {
+   "lema": "oruma",
+   "glosa": "enviar, mandar",
+   "variante": "C",
+   "origem": "acervo-v0.2"
+  },
+  {
+   "lema": "orupa",
+   "glosa": "dormir",
+   "variante": "C",
+   "origem": "acervo-v0.2"
+  },
+  {
+   "lema": "orwa",
+   "glosa": "vir, chegar",
+   "variante": "C",
+   "origem": "acervo-v0.2"
+  },
+  {
+   "lema": "osaka",
+   "glosa": "caçar; procurar",
+   "variante": "C",
+   "origem": "acervo-v0.2"
+  },
+  {
+   "lema": "osoma",
+   "glosa": "ler; estudar",
+   "variante": "C",
+   "origem": "acervo-v0.2"
+  },
+  {
+   "lema": "osuwela",
+   "glosa": "saber, conhecer",
+   "variante": "C",
+   "origem": "acervo-v0.2"
+  },
+  {
+   "lema": "othikila",
+   "glosa": "cortar",
+   "variante": "C",
+   "origem": "acervo-v0.2"
+  },
+  {
+   "lema": "othukumana",
+   "glosa": "reunir-se, juntar-se",
+   "variante": "C",
+   "origem": "acervo-v0.2"
+  },
+  {
+   "lema": "othuma",
+   "glosa": "comprar",
+   "variante": "C",
+   "origem": "acervo-v0.2"
+  },
+  {
+   "lema": "ottheka",
+   "glosa": "construir, edificar",
+   "variante": "C",
+   "origem": "acervo-v0.2"
+  },
+  {
+   "lema": "otthimaka",
+   "glosa": "correr",
+   "variante": "C",
+   "origem": "doc 01 ortografia"
+  },
+  {
+   "lema": "otthuka",
+   "glosa": "fechar",
+   "variante": "C",
+   "origem": "acervo-v0.2"
+  },
+  {
+   "lema": "otthukula",
+   "glosa": "abrir",
+   "variante": "C",
+   "origem": "acervo-v0.2"
+  },
+  {
+   "lema": "otthuna",
+   "glosa": "querer, desejar, procurar",
+   "variante": "C",
+   "origem": "acervo-v0.2"
+  },
+  {
+   "lema": "otthyawa",
+   "glosa": "fugir, correr",
+   "variante": "C",
+   "origem": "acervo-v0.2"
+  },
+  {
+   "lema": "otumiha",
+   "glosa": "vender",
+   "variante": "C",
+   "origem": "acervo-v0.2"
+  },
+  {
+   "lema": "ovaha",
+   "glosa": "dar, entregar",
+   "variante": "C",
+   "origem": "acervo-v0.2"
+  },
+  {
+   "lema": "ovara",
+   "glosa": "segurar, agarrar, pegar",
+   "variante": "C",
+   "origem": "acervo-v0.2"
+  },
+  {
+   "lema": "ovara muteko",
+   "glosa": "trabalhar",
+   "variante": "C",
+   "origem": "acervo-v0.2"
+  },
+  {
+   "lema": "ovarana",
+   "glosa": "agarrar um ao outro",
+   "variante": "C",
+   "origem": "acervo-v0.2"
+  },
+  {
+   "lema": "ovariwa",
+   "glosa": "ser agarrado",
+   "variante": "C",
+   "origem": "acervo-v0.2"
+  },
+  {
+   "lema": "ovuluwa",
+   "glosa": "cair",
+   "variante": "C",
+   "origem": "acervo-v0.2"
+  },
+  {
+   "lema": "owaakhula",
+   "glosa": "responder",
+   "variante": "C",
+   "origem": "acervo-v0.2"
+  },
+  {
+   "lema": "oweha",
+   "glosa": "olhar, ver",
+   "variante": "C",
+   "origem": "acervo-v0.2"
+  },
+  {
+   "lema": "owela",
+   "glosa": "subir",
+   "variante": "C",
+   "origem": "acervo-v0.2"
+  },
+  {
+   "lema": "owereriwa",
+   "glosa": "adoecer, estar doente",
+   "variante": "C",
+   "origem": "acervo-v0.2"
+  },
+  {
+   "lema": "owereya",
+   "glosa": "poder, ser capaz de",
+   "variante": "C",
+   "origem": "acervo-v0.2"
+  },
+  {
+   "lema": "owiipa",
+   "glosa": "cantar",
+   "variante": "C",
+   "origem": "acervo-v0.2"
+  },
+  {
+   "lema": "owiriyana",
+   "glosa": "ouvir, escutar; entender",
+   "variante": "C",
+   "origem": "acervo-v0.2"
+  },
+  {
+   "lema": "owoova",
+   "glosa": "ter medo, recear",
+   "variante": "C",
+   "origem": "acervo-v0.2"
+  },
+  {
+   "lema": "oworya",
+   "glosa": "conseguir",
+   "variante": "C",
+   "origem": "doc 01 ortografia"
+  },
+  {
+   "lema": "owurya",
+   "glosa": "beber",
+   "variante": "C",
+   "origem": "acervo-v0.2"
+  },
+  {
+   "lema": "oxuttha",
+   "glosa": "aprender",
+   "variante": "C",
+   "origem": "acervo-v0.2"
+  },
+  {
+   "lema": "oxutthiha",
+   "glosa": "ensinar",
+   "variante": "C",
+   "origem": "acervo-v0.2"
+  },
+  {
+   "lema": "oyara",
+   "glosa": "dar à luz, parir; gerar",
+   "variante": "C",
+   "origem": "acervo-v0.2"
+  },
+  {
+   "lema": "oziva",
+   "glosa": "agradável",
+   "variante": "C",
+   "origem": "doc 01 ortografia"
+  },
+  {
+   "lema": "piili",
+   "glosa": "dois",
+   "variante": "C",
+   "origem": "doc 02 §6 numerais"
+  },
+  {
+   "lema": "salaama",
+   "glosa": "saudação, cumprimento; paz",
+   "variante": "C",
+   "origem": "acervo-v0.2"
+  },
+  {
+   "lema": "salaama",
+   "glosa": "cumprimentos",
+   "variante": "C",
+   "origem": "doc 01 ortografia"
+  },
+  {
+   "lema": "tani",
+   "glosa": "quem?",
+   "variante": "C",
+   "origem": "acervo-v0.2"
+  },
+  {
+   "lema": "thanu",
+   "glosa": "cinco",
+   "variante": "C",
+   "origem": "doc 02 §6 numerais"
+  },
+  {
+   "lema": "tho",
+   "glosa": "mais",
+   "variante": "C",
+   "origem": "doc 01 ortografia"
+  },
+  {
+   "lema": "ttharu",
+   "glosa": "três",
+   "variante": "C",
+   "origem": "doc 02 §6 numerais"
+  },
+  {
+   "lema": "variyari",
+   "glosa": "entre",
+   "variante": "C",
+   "origem": "doc 01 ortografia"
+  },
+  {
+   "lema": "waatta",
+   "glosa": "abundar",
+   "variante": "C",
+   "origem": "acervo-v0.2"
+  },
+  {
+   "lema": "wayi",
+   "glosa": "onde?",
+   "variante": "C",
+   "origem": "acervo-v0.2"
+  },
+  {
+   "lema": "wiitthana",
+   "glosa": "chamar",
+   "variante": "C",
+   "origem": "doc 01 ortografia"
+  },
+  {
+   "lema": "wona",
+   "glosa": "ver",
+   "variante": "C",
+   "origem": "acervo-v0.2"
+  },
+  {
+   "lema": "woneya",
+   "glosa": "ser visível",
+   "variante": "C",
+   "origem": "acervo-v0.2"
+  },
+  {
+   "lema": "wuuma",
+   "glosa": "secar",
+   "variante": "C",
+   "origem": "acervo-v0.2"
+  },
+  {
+   "lema": "xexe",
+   "glosa": "quatro",
+   "variante": "C",
+   "origem": "doc 02 §6 numerais"
+  },
+  {
+   "lema": "yoolya",
+   "glosa": "comida, alimento",
+   "variante": "C",
+   "origem": "acervo-v0.2"
+  },
+  {
+   "lema": "yuji",
+   "glosa": "testa",
+   "variante": "C",
+   "origem": "doc 01 ortografia"
+  },
+  {
+   "lema": "aah",
+   "glosa": "sim",
+   "variante": "",
+   "origem": "doc 03 §3.5 fórmulas"
+  },
+  {
+   "lema": "aana",
+   "glosa": "crianças",
+   "variante": "",
+   "origem": "doc 01 ortografia"
+  },
+  {
+   "lema": "atthu",
+   "glosa": "pessoas",
+   "variante": "",
+   "origem": "doc 01 ortografia"
+  },
+  {
+   "lema": "ekalawa",
+   "glosa": "barco",
+   "variante": "",
+   "origem": "doc 01 ortografia"
+  },
+  {
+   "lema": "kharipu",
+   "glosa": "fique à vontade",
+   "variante": "",
+   "origem": "doc 03 §3.5 fórmulas"
+  },
+  {
+   "lema": "khomala",
+   "glosa": "com licença",
+   "variante": "",
+   "origem": "doc 03 §3.5 fórmulas"
+  },
+  {
+   "lema": "mmattani",
+   "glosa": "na machamba",
+   "variante": "",
+   "origem": "doc 01 ortografia"
+  },
+  {
+   "lema": "mmusikani",
+   "glosa": "no mercado",
+   "variante": "",
+   "origem": "doc 01 ortografia"
+  },
+  {
+   "lema": "mwaalo",
+   "glosa": "faca",
+   "variante": "",
+   "origem": "doc 01 ortografia"
+  },
+  {
+   "lema": "mwaana",
+   "glosa": "criança",
+   "variante": "",
+   "origem": "doc 01 ortografia"
+  },
+  {
+   "lema": "ntthu",
+   "glosa": "pessoa",
+   "variante": "",
+   "origem": "doc 01 ortografia"
+  },
+  {
+   "lema": "nvelo",
+   "glosa": "vassoura",
+   "variante": "",
+   "origem": "doc 01 ortografia"
+  },
+  {
+   "lema": "ohimya",
+   "glosa": "dizer",
+   "variante": "",
+   "origem": "doc 03 §3.4 verbos"
+  },
+  {
+   "lema": "ohiya",
+   "glosa": "deixar",
+   "variante": "",
+   "origem": "doc 03 §3.4 verbos"
+  },
+  {
+   "lema": "okhala",
+   "glosa": "ficar, habitar, ser",
+   "variante": "",
+   "origem": "doc 03 §3.4 verbos"
+  },
+  {
+   "lema": "okupali",
+   "glosa": "crer",
+   "variante": "",
+   "origem": "doc 03 §3.4 verbos"
+  },
+  {
+   "lema": "olempa",
+   "glosa": "escrever",
+   "variante": "",
+   "origem": "doc 03 §3.4 verbos"
+  },
+  {
+   "lema": "olima",
+   "glosa": "cultivar",
+   "variante": "",
+   "origem": "doc 03 §3.4 verbos"
+  },
+  {
+   "lema": "ontekoni",
+   "glosa": "no trabalho",
+   "variante": "",
+   "origem": "doc 01 ortografia"
+  },
+  {
+   "lema": "ooja",
+   "glosa": "comer",
+   "variante": "",
+   "origem": "doc 03 §3.4 verbos"
+  },
+  {
+   "lema": "osoma",
+   "glosa": "ler",
+   "variante": "",
+   "origem": "doc 03 §3.4 verbos"
+  },
+  {
+   "lema": "osuwela",
+   "glosa": "saber",
+   "variante": "",
+   "origem": "doc 03 §3.4 verbos"
+  },
+  {
+   "lema": "ottyawa",
+   "glosa": "correr",
+   "variante": "",
+   "origem": "doc 03 §3.4 verbos"
+  },
+  {
+   "lema": "ovaha",
+   "glosa": "dar",
+   "variante": "",
+   "origem": "doc 03 §3.4 verbos"
+  },
+  {
+   "lema": "ovara",
+   "glosa": "fazer, trabalhar",
+   "variante": "",
+   "origem": "doc 03 §3.4 verbos"
+  },
+  {
+   "lema": "owaana",
+   "glosa": "trazer",
+   "variante": "",
+   "origem": "doc 03 §3.4 verbos"
+  },
+  {
+   "lema": "oweha",
+   "glosa": "olhar",
+   "variante": "",
+   "origem": "doc 03 §3.4 verbos"
+  },
+  {
+   "lema": "ozuwela",
+   "glosa": "saber",
+   "variante": "",
+   "origem": "doc 03 §3.4 verbos"
+  },
+  {
+   "lema": "paahi",
+   "glosa": "basta, chega",
+   "variante": "",
+   "origem": "doc 03 §3.5 fórmulas"
+  },
+  {
+   "lema": "salaama",
+   "glosa": "saudação, cumprimento",
+   "variante": "",
+   "origem": "doc 03 §3.5 fórmulas"
+  },
+  {
+   "lema": "totoro",
+   "glosa": "médico",
+   "variante": "",
+   "origem": "doc 01 ortografia"
+  },
+  {
+   "lema": "vathi",
+   "glosa": "no chão",
+   "variante": "",
+   "origem": "doc 01 ortografia"
+  },
+  {
+   "lema": "wasulu",
+   "glosa": "em cima",
+   "variante": "",
+   "origem": "doc 01 ortografia"
+  },
+  {
+   "lema": "weetta",
+   "glosa": "andar",
+   "variante": "",
+   "origem": "doc 03 §3.4 verbos"
+  },
+  {
+   "lema": "wiina",
+   "glosa": "dançar",
+   "variante": "",
+   "origem": "doc 03 §3.4 verbos"
+  },
+  {
+   "lema": "wiinwelela",
+   "glosa": "escutar",
+   "variante": "",
+   "origem": "doc 03 §3.4 verbos"
+  },
+  {
+   "lema": "wiipa",
+   "glosa": "cantar",
+   "variante": "",
+   "origem": "doc 03 §3.4 verbos"
+  },
+  {
+   "lema": "wiira",
+   "glosa": "fazer, dizer",
+   "variante": "",
+   "origem": "doc 03 §3.4 verbos"
+  },
+  {
+   "lema": "winwa",
+   "glosa": "ouvir",
+   "variante": "",
+   "origem": "doc 03 §3.4 verbos"
+  },
+  {
+   "lema": "woona",
+   "glosa": "ver",
+   "variante": "",
+   "origem": "doc 03 §3.4 verbos"
+  },
+  {
+   "lema": "wunla",
+   "glosa": "chorar",
+   "variante": "",
+   "origem": "doc 03 §3.4 verbos"
+  },
+  {
+   "lema": "ahaalu",
+   "glosa": "tio materno",
+   "variante": "En",
+   "origem": "doc 03 §3.1 parentesco"
+  },
+  {
+   "lema": "akaakha",
+   "glosa": "tio paterno",
+   "variante": "En",
+   "origem": "doc 03 §3.1 parentesco"
+  },
+  {
+   "lema": "akuulu",
+   "glosa": "tia materna mais velha",
+   "variante": "En",
+   "origem": "doc 03 §3.1 parentesco"
+  },
+  {
+   "lema": "amaathi",
+   "glosa": "tia paterna",
+   "variante": "En",
+   "origem": "doc 03 §3.1 parentesco"
+  },
+  {
+   "lema": "amwaaraka",
+   "glosa": "a minha esposa",
+   "variante": "En",
+   "origem": "doc 03 §3.1 parentesco"
+  },
+  {
+   "lema": "amwannaka",
+   "glosa": "o meu marido",
+   "variante": "En",
+   "origem": "doc 03 §3.1 parentesco"
+  },
+  {
+   "lema": "apiipi",
+   "glosa": "avó materna",
+   "variante": "En",
+   "origem": "doc 03 §3.1 parentesco"
+  },
+  {
+   "lema": "apwaapu",
+   "glosa": "avô materno",
+   "variante": "En",
+   "origem": "doc 03 §3.1 parentesco"
+  },
+  {
+   "lema": "atuhuri",
+   "glosa": "meio-dia",
+   "variante": "En",
+   "origem": "doc 02 §7 tempo"
+  },
+  {
+   "lema": "eemelo",
+   "glosa": "amanhã",
+   "variante": "En",
+   "origem": "doc 02 §7 tempo"
+  },
+  {
+   "lema": "eleeti",
+   "glosa": "leite",
+   "variante": "En",
+   "origem": "doc 03 §3.3 comida"
+  },
+  {
+   "lema": "elelo",
+   "glosa": "hoje",
+   "variante": "En",
+   "origem": "doc 02 §7 tempo"
+  },
+  {
+   "lema": "enama",
+   "glosa": "carne",
+   "variante": "En",
+   "origem": "doc 03 §3.3 comida"
+  },
+  {
+   "lema": "epaawu",
+   "glosa": "pão",
+   "variante": "En",
+   "origem": "doc 03 §3.3 comida"
+  },
+  {
+   "lema": "epalama",
+   "glosa": "daqui a três dias",
+   "variante": "En",
+   "origem": "doc 02 §7 tempo"
+  },
+  {
+   "lema": "ephome",
+   "glosa": "sangue",
+   "variante": "En",
+   "origem": "doc 03 §3.2 corpo"
+  },
+  {
+   "lema": "ephula",
+   "glosa": "nariz",
+   "variante": "En",
+   "origem": "doc 03 §3.2 corpo"
+  },
+  {
+   "lema": "erukulu",
+   "glosa": "barriga",
+   "variante": "En",
+   "origem": "doc 03 §3.2 corpo"
+  },
+  {
+   "lema": "esukuru",
+   "glosa": "daqui a quatro dias",
+   "variante": "En",
+   "origem": "doc 02 §7 tempo"
+  },
+  {
+   "lema": "ettuli",
+   "glosa": "costas",
+   "variante": "En",
+   "origem": "doc 03 §3.2 corpo"
+  },
+  {
+   "lema": "exiko",
+   "glosa": "pescoço",
+   "variante": "En",
+   "origem": "doc 03 §3.2 corpo"
+  },
+  {
+   "lema": "exima",
+   "glosa": "xima",
+   "variante": "En",
+   "origem": "doc 03 §3.3 comida"
+  },
+  {
+   "lema": "eyano",
+   "glosa": "boca",
+   "variante": "En",
+   "origem": "doc 03 §3.2 corpo"
+  },
+  {
+   "lema": "eyooja",
+   "glosa": "comida",
+   "variante": "En",
+   "origem": "doc 03 §3.3 comida"
+  },
+  {
+   "lema": "maakha",
+   "glosa": "sal",
+   "variante": "En",
+   "origem": "doc 03 §3.3 comida"
+  },
+  {
+   "lema": "mahaaza",
+   "glosa": "papas",
+   "variante": "En",
+   "origem": "doc 03 §3.3 comida"
+  },
+  {
+   "lema": "makhura",
+   "glosa": "óleo",
+   "variante": "En",
+   "origem": "doc 03 §3.3 comida"
+  },
+  {
+   "lema": "mana",
+   "glosa": "irmã mais nova",
+   "variante": "En",
+   "origem": "doc 03 §3.1 parentesco"
+  },
+  {
+   "lema": "manu",
+   "glosa": "irmão",
+   "variante": "En",
+   "origem": "doc 03 §3.1 parentesco"
+  },
+  {
+   "lema": "matapixu",
+   "glosa": "matabicho",
+   "variante": "En",
+   "origem": "doc 03 §3.3 comida"
+  },
+  {
+   "lema": "matthapa",
+   "glosa": "folhas de mandioca",
+   "variante": "En",
+   "origem": "doc 03 §3.3 comida"
+  },
+  {
+   "lema": "maziriziri",
+   "glosa": "há quatro dias",
+   "variante": "En",
+   "origem": "doc 02 §7 tempo"
+  },
+  {
+   "lema": "moono",
+   "glosa": "braço",
+   "variante": "En",
+   "origem": "doc 03 §3.2 corpo"
+  },
+  {
+   "lema": "mwaatani",
+   "glosa": "cunhada",
+   "variante": "En",
+   "origem": "doc 03 §3.1 parentesco"
+  },
+  {
+   "lema": "mwahiyo",
+   "glosa": "próximo ano",
+   "variante": "En",
+   "origem": "doc 02 §7 tempo"
+  },
+  {
+   "lema": "mwana nlopwana",
+   "glosa": "filho",
+   "variante": "En",
+   "origem": "doc 03 §3.1 parentesco"
+  },
+  {
+   "lema": "mwana nthiyana",
+   "glosa": "filha",
+   "variante": "En",
+   "origem": "doc 03 §3.1 parentesco"
+  },
+  {
+   "lema": "mwetto",
+   "glosa": "pé, perna",
+   "variante": "En",
+   "origem": "doc 03 §3.2 corpo"
+  },
+  {
+   "lema": "naakhuwo",
+   "glosa": "milho",
+   "variante": "En",
+   "origem": "doc 03 §3.3 comida"
+  },
+  {
+   "lema": "naaru",
+   "glosa": "orelha",
+   "variante": "En",
+   "origem": "doc 03 §3.2 corpo"
+  },
+  {
+   "lema": "nhuzi",
+   "glosa": "caril, molho",
+   "variante": "En",
+   "origem": "doc 03 §3.3 comida"
+  },
+  {
+   "lema": "niinno",
+   "glosa": "dente",
+   "variante": "En",
+   "origem": "doc 03 §3.2 corpo"
+  },
+  {
+   "lema": "niitho",
+   "glosa": "olho",
+   "variante": "En",
+   "origem": "doc 03 §3.2 corpo"
+  },
+  {
+   "lema": "nikhuva",
+   "glosa": "osso",
+   "variante": "En",
+   "origem": "doc 03 §3.2 corpo"
+  },
+  {
+   "lema": "nikokho",
+   "glosa": "dedo",
+   "variante": "En",
+   "origem": "doc 03 §3.2 corpo"
+  },
+  {
+   "lema": "nikutha",
+   "glosa": "joelho",
+   "variante": "En",
+   "origem": "doc 03 §3.2 corpo"
+  },
+  {
+   "lema": "nlaku",
+   "glosa": "lábio",
+   "variante": "En",
+   "origem": "doc 03 §3.2 corpo"
+  },
+  {
+   "lema": "nnlamu",
+   "glosa": "cunhado",
+   "variante": "En",
+   "origem": "doc 03 §3.1 parentesco"
+  },
+  {
+   "lema": "nrima",
+   "glosa": "coração",
+   "variante": "En",
+   "origem": "doc 03 §3.2 corpo"
+  },
+  {
+   "lema": "nrotto",
+   "glosa": "depois de amanhã",
+   "variante": "En",
+   "origem": "doc 02 §7 tempo"
+  },
+  {
+   "lema": "ntano",
+   "glosa": "este ano",
+   "variante": "En",
+   "origem": "doc 02 §7 tempo"
+  },
+  {
+   "lema": "ntata",
+   "glosa": "mão",
+   "variante": "En",
+   "origem": "doc 03 §3.2 corpo"
+  },
+  {
+   "lema": "nuunu",
+   "glosa": "irmã mais velha",
+   "variante": "En",
+   "origem": "doc 03 §3.1 parentesco"
+  },
+  {
+   "lema": "nzana",
+   "glosa": "ontem",
+   "variante": "En",
+   "origem": "doc 02 §7 tempo"
+  },
+  {
+   "lema": "nzuulu",
+   "glosa": "neto, neta; sobrinho, sobrinha",
+   "variante": "En",
+   "origem": "doc 03 §3.1 parentesco"
+  },
+  {
+   "lema": "okathi",
+   "glosa": "estação, tempo",
+   "variante": "En",
+   "origem": "doc 02 §7 tempo"
+  },
+  {
+   "lema": "okhuneela",
+   "glosa": "cobrir",
+   "variante": "En",
+   "origem": "doc 01 ortografia"
+  },
+  {
+   "lema": "omaala",
+   "glosa": "calar-se",
+   "variante": "En",
+   "origem": "doc 01 ortografia"
+  },
+  {
+   "lema": "omala",
+   "glosa": "acabar",
+   "variante": "En",
+   "origem": "doc 01 ortografia"
+  },
+  {
+   "lema": "omila",
+   "glosa": "assoar-se",
+   "variante": "En",
+   "origem": "doc 01 ortografia"
+  },
+  {
+   "lema": "oruttutthu",
+   "glosa": "farinha",
+   "variante": "En",
+   "origem": "doc 03 §3.3 comida"
+  },
+  {
+   "lema": "othana",
+   "glosa": "dia, tarde",
+   "variante": "En",
+   "origem": "doc 02 §7 tempo"
+  },
+  {
+   "lema": "othela",
+   "glosa": "casar",
+   "variante": "En",
+   "origem": "doc 01 ortografia"
+  },
+  {
+   "lema": "otthara",
+   "glosa": "seguir",
+   "variante": "En",
+   "origem": "doc 01 ortografia"
+  },
+  {
+   "lema": "oxaaka",
+   "glosa": "madrugada",
+   "variante": "En",
+   "origem": "doc 02 §7 tempo"
+  },
+  {
+   "lema": "taata",
+   "glosa": "irmão mais velho; tio",
+   "variante": "En",
+   "origem": "doc 03 §3.1 parentesco"
+  },
+  {
+   "lema": "wiitho",
+   "glosa": "cara",
+   "variante": "En",
+   "origem": "doc 03 §3.2 corpo"
+  },
+  {
+   "lema": "wijisu",
+   "glosa": "cedo de manhã",
+   "variante": "En",
+   "origem": "doc 02 §7 tempo"
+  },
+  {
+   "lema": "wootha",
+   "glosa": "mentir",
+   "variante": "En",
+   "origem": "doc 01 ortografia"
+  }
+ ]
+}
